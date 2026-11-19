@@ -27,7 +27,7 @@ EDITORIAL = DATA / "editorial_briefs.json"
 NOW = datetime.now(timezone.utc).isoformat(timespec="seconds")
 MAX_NEW = 8
 MAX_BRIEFS = 100
-MAX_AI = 3
+MAX_AI = max(0, min(2, int(os.environ.get("HEALTHSCOPE_MAX_AI", "1"))))
 UA = "HealthScope-Educational-Intelligence/1.0"
 
 VOCAB = {
@@ -289,27 +289,60 @@ def main():
             old[item["source_url"]]=item
     ordered=sorted([r for r in feed if isinstance(r,dict) and str(r.get("url","")).startswith("https://") and fresh(r) and r.get("source_type") != "Research portal" and not str(r.get("title","")).startswith("Explore ") and not (r.get("source_type") == "Clinical trial registry" and "/study/NCT" not in r.get("url",""))],
        key=lambda r:(score(r),r.get("published","")),reverse=True)
-    selected=[r for r in ordered if score(r)>=4 and (r["url"] not in old or (not old[r["url"]].get("source_documents") and not str(old[r["url"]].get("mode","")).startswith("Editorially")))][:MAX_NEW]
+    has_key=bool(os.environ.get("OPENAI_API_KEY","").strip())
+    def needs_review(r):
+        existing=old.get(r["url"])
+        if existing is None:
+            return True
+        if str(existing.get("mode","")).startswith("Editorially"):
+            return False
+        if has_key and str(existing.get("mode","")).startswith("Research reading notes"):
+            # Retry old metadata-only notes when the API is first enabled.
+            # An unsuccessful API attempt is cooled down for seven days.
+            last=str(existing.get("ai_last_attempt_at",""))
+            try:
+                days=(datetime.now(timezone.utc).date()-datetime.fromisoformat(last[:10]).date()).days
+                return days>=7
+            except (ValueError,TypeError):
+                return True
+        return not existing.get("source_documents")
+    selected=[r for r in ordered if score(r)>=4 and needs_review(r)][:MAX_NEW]
     ai_count=0
+    ai_attempts=0
     statuses=[]
     for r in selected:
         packet=source_packet(r)
+        existing=old.get(r["url"])
         brief=fallback(r,packet)
-        if os.environ.get("OPENAI_API_KEY") and ai_count<MAX_AI:
+        if has_key and ai_attempts<MAX_AI and packet.get("source_level")=="Primary source excerpt" and len(packet.get("text",""))>=600:
+            ai_attempts+=1
+            brief["ai_last_attempt_at"]=NOW
             try:
-                brief=ai_brief(r,brief,packet) or brief
-                ai_count+=1
-                statuses.append({"url":r["url"],"status":"ai_assisted"})
+                enriched=ai_brief(r,brief,packet)
+                if enriched and "AI-assisted" in enriched.get("mode",""):
+                    brief=enriched
+                    brief["ai_last_attempt_at"]=NOW
+                    ai_count+=1
+                    statuses.append({"url":r["url"],"status":"ai_enriched","source_depth":packet.get("source_level")})
+                else:
+                    statuses.append({"url":r["url"],"status":"fallback","reason":"InsufficientSourceText"})
             except Exception as e:
-                statuses.append({"url":r["url"],"status":"fallback","reason":type(e).__name__})
+                # No credential contents or raw API responses are logged or committed.
+                statuses.append({"url":r["url"],"status":"ai_failed","reason":type(e).__name__,"http_status":getattr(e,"code",None)})
+        elif has_key and ai_attempts>=MAX_AI:
+            statuses.append({"url":r["url"],"status":"deferred_budget_cap"})
+        # Retain any previous human-edited or deep research note rather than overwrite it with
+        # a shorter metadata fallback when automatic enrichment is unavailable.
+        if existing and "AI-assisted" in str(existing.get("mode","")) and "AI-assisted" not in str(brief.get("mode","")):
+            brief=existing
         old[r["url"]]=brief
         statuses.append({"url":r["url"],"source_depth":packet.get("source_level"),"mode":brief["mode"]})
     briefs=list(old.values())
     briefs.sort(key=lambda b:(b.get("mode","").startswith("Editorially"),b.get("published","")),reverse=True)
     BRIEFS.write_text(json.dumps(briefs[:MAX_BRIEFS],indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
     STATUS.write_text(json.dumps({"last_generated":NOW,"available_briefs":len(briefs[:MAX_BRIEFS]),
-        "new_briefs":len(selected),"ai_enriched":ai_count,
-        "ai_enabled":bool(os.environ.get("OPENAI_API_KEY")),"items":statuses,
+        "new_briefs":len(selected),"ai_attempts":ai_attempts,"ai_enriched":ai_count,
+        "ai_enabled":has_key,"ai_verification":"confirmed" if ai_count else ("failed_or_unverified" if ai_attempts else "not_attempted"),"items":statuses,
         "limitations":"Automatic briefs may lack full source context; AI outputs are unreviewed and must be checked."},indent=2)+"\n",encoding="utf-8")
     print("Briefs written:",len(briefs[:MAX_BRIEFS]),"new:",len(selected),"AI enriched:",ai_count)
 
