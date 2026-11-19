@@ -1,0 +1,35 @@
+[
+  {
+    "id": "who-africa-his",
+    "title": "New WHO report reveals critical gaps in Africa's health information systems",
+    "source": "WHO Regional Office for Africa",
+    "source_type": "Official announcement",
+    "published": "2026-11-10",
+    "url": "https://www.afro.who.int/news/new-who-report-reveals-critical-gaps-africas-health-information-systems",
+    "category": "Digital health",
+    "region": "Africa",
+    "summary": "A WHO assessment of health information systems in 40 African countries examines differences in capability, including facility-level data analysis and quality assessment. Read the report for context and methodology."
+  },
+  {
+    "id": "pubmed",
+    "title": "Explore recently indexed digital health and health informatics research",
+    "source": "PubMed",
+    "source_type": "Research portal",
+    "published": "2026-11-19",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/?term=health+informatics",
+    "category": "Research & evidence",
+    "region": "Global / unspecified",
+    "summary": "A starting point for original peer-reviewed publications. An indexed citation alone does not validate study quality."
+  },
+  {
+    "id": "trials",
+    "title": "Explore registered digital health clinical trials",
+    "source": "ClinicalTrials.gov",
+    "source_type": "Clinical trial registry",
+    "published": "2026-11-19",
+    "url": "https://clinicaltrials.gov/search?term=digital%20health",
+    "category": "Clinical trials",
+    "region": "Global / unspecified",
+    "summary": "Trial registration describes intended research. It does not prove safety or effectiveness."
+  }
+]
