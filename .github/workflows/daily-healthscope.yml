@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/**'
+      - 'docs/data/editorial_briefs.json'
       - '.github/workflows/daily-healthscope.yml'
   schedule:
     # 06:00 UTC is 07:00 West Africa Time
