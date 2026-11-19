@@ -345,7 +345,7 @@ def main():
                     brief=enriched
                     brief["ai_last_attempt_at"]=NOW
                     brief["ai_last_attempt_provider"]=provider
-            brief["ai_last_attempt_model"]=os.environ.get("HEALTHSCOPE_GEMINI_MODEL","gemini-3.1-flash-lite") if provider=="gemini" else os.environ.get("HEALTHSCOPE_AI_MODEL","gpt-4.1-mini")
+                    brief["ai_last_attempt_model"]=os.environ.get("HEALTHSCOPE_GEMINI_MODEL","gemini-3.1-flash-lite") if provider=="gemini" else os.environ.get("HEALTHSCOPE_AI_MODEL","gpt-4.1-mini")
                     ai_count+=1
                     statuses.append({"url":r["url"],"status":"ai_enriched","provider":provider,"source_depth":packet.get("source_level")})
                 else:
