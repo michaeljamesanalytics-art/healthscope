@@ -316,6 +316,7 @@ def main():
             return False
         if has_key and str(existing.get("mode","")).startswith("Research reading notes"):
             if force_retry or existing.get("ai_last_attempt_provider") != provider: return True
+            if provider=="gemini" and existing.get("ai_last_attempt_model") != os.environ.get("HEALTHSCOPE_GEMINI_MODEL","gemini-3.1-flash-lite"): return True
             # Retry old metadata-only notes when the API is first enabled.
             # An unsuccessful API attempt is cooled down for seven days.
             last=str(existing.get("ai_last_attempt_at",""))
@@ -337,12 +338,14 @@ def main():
             ai_attempts+=1
             brief["ai_last_attempt_at"]=NOW
             brief["ai_last_attempt_provider"]=provider
+            brief["ai_last_attempt_model"]=os.environ.get("HEALTHSCOPE_GEMINI_MODEL","gemini-3.1-flash-lite") if provider=="gemini" else os.environ.get("HEALTHSCOPE_AI_MODEL","gpt-4.1-mini")
             try:
                 enriched=ai_brief(r,brief,packet)
                 if enriched and "AI-assisted" in enriched.get("mode",""):
                     brief=enriched
                     brief["ai_last_attempt_at"]=NOW
                     brief["ai_last_attempt_provider"]=provider
+            brief["ai_last_attempt_model"]=os.environ.get("HEALTHSCOPE_GEMINI_MODEL","gemini-3.1-flash-lite") if provider=="gemini" else os.environ.get("HEALTHSCOPE_AI_MODEL","gpt-4.1-mini")
                     ai_count+=1
                     statuses.append({"url":r["url"],"status":"ai_enriched","provider":provider,"source_depth":packet.get("source_level")})
                 else:
