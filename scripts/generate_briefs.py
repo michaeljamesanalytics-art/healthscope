@@ -290,6 +290,7 @@ def main():
     ordered=sorted([r for r in feed if isinstance(r,dict) and str(r.get("url","")).startswith("https://") and fresh(r) and r.get("source_type") != "Research portal" and not str(r.get("title","")).startswith("Explore ") and not (r.get("source_type") == "Clinical trial registry" and "/study/NCT" not in r.get("url",""))],
        key=lambda r:(score(r),r.get("published","")),reverse=True)
     has_key=bool(os.environ.get("OPENAI_API_KEY","").strip())
+    force_retry=os.environ.get("HEALTHSCOPE_FORCE_AI_RETRY","").lower() in ("true","yes","1")
     def needs_review(r):
         existing=old.get(r["url"])
         if existing is None:
@@ -297,6 +298,7 @@ def main():
         if str(existing.get("mode","")).startswith("Editorially"):
             return False
         if has_key and str(existing.get("mode","")).startswith("Research reading notes"):
+            if force_retry: return True
             # Retry old metadata-only notes when the API is first enabled.
             # An unsuccessful API attempt is cooled down for seven days.
             last=str(existing.get("ai_last_attempt_at",""))
@@ -328,7 +330,19 @@ def main():
                     statuses.append({"url":r["url"],"status":"fallback","reason":"InsufficientSourceText"})
             except Exception as e:
                 # No credential contents or raw API responses are logged or committed.
-                statuses.append({"url":r["url"],"status":"ai_failed","reason":type(e).__name__,"http_status":getattr(e,"code",None)})
+                details={"url":r["url"],"status":"ai_failed","reason":type(e).__name__,"http_status":getattr(e,"code",None)}
+                if isinstance(e,urllib.error.HTTPError):
+                    # Capture only an allowed error category; never log the raw API response.
+                    try:
+                        message=json.loads(e.read(2048).decode("utf-8","replace")).get("error",{})
+                        raw=str(message.get("code") or message.get("type") or "")
+                        allowed={"credit_balance_exhausted","organization_usage_limit_exceeded",
+                                 "organization_spend_limit_exceeded","project_spend_limit_exceeded",
+                                 "insufficient_quota","rate_limit_exceeded","tokens"}
+                        details["api_error_code"]=raw if raw in allowed else "unclassified"
+                    except (ValueError,TypeError,UnicodeError):
+                        details["api_error_code"]="unclassified"
+                statuses.append(details)
         elif has_key and ai_attempts>=MAX_AI:
             statuses.append({"url":r["url"],"status":"deferred_budget_cap"})
         # Retain any previous human-edited or deep research note rather than overwrite it with
