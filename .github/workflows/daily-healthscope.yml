@@ -1,6 +1,12 @@
 name: Update HealthScope daily
 on:
   workflow_dispatch:
+    inputs:
+      force_ai_retry:
+        description: "Retry one AI research brief after fixing credits or rate limits"
+        type: boolean
+        required: false
+        default: false
   push:
     branches: [main]
     paths:
@@ -39,6 +45,8 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           HEALTHSCOPE_AI_MODEL: gpt-4.1-mini
+          HEALTHSCOPE_MAX_AI: '1'
+          HEALTHSCOPE_FORCE_AI_RETRY: ${{ inputs.force_ai_retry || 'false' }}
         run: python scripts/generate_briefs.py
       - name: Commit refreshed feed
         if: always()
