@@ -25,12 +25,17 @@ jobs:
           SMTP_FROM_EMAIL: ${{ secrets.SMTP_FROM_EMAIL }}
           DIGEST_TO_EMAIL: ${{ secrets.DIGEST_TO_EMAIL }}
         run: python scripts/update_feed.py
+      - name: Generate evidence-aware intelligence briefs
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          HEALTHSCOPE_AI_MODEL: gpt-4.1-mini
+        run: python scripts/generate_briefs.py
       - name: Commit refreshed feed
         if: always()
         run: |
           git config user.name "healthscope-bot"
           git config user.email "healthscope-bot@users.noreply.github.com"
-          git add docs/data/updates.json docs/data/status.json
+          git add docs/data/updates.json docs/data/status.json docs/data/briefs.json docs/data/brief_status.json
           if ! git diff --cached --quiet; then
             git commit -m "Refresh HealthScope daily healthcare sources"
             git push
