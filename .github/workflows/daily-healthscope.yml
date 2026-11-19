@@ -1,0 +1,37 @@
+name: Update HealthScope daily
+on:
+  workflow_dispatch:
+  schedule:
+    # 06:00 UTC is 07:00 West Africa Time
+    - cron: '0 6 * * *'
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Configure Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch public health sources and optionally email digest
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_FROM_EMAIL: ${{ secrets.SMTP_FROM_EMAIL }}
+          DIGEST_TO_EMAIL: ${{ secrets.DIGEST_TO_EMAIL }}
+        run: python scripts/update_feed.py
+      - name: Commit refreshed feed
+        if: always()
+        run: |
+          git config user.name "healthscope-bot"
+          git config user.email "healthscope-bot@users.noreply.github.com"
+          git add docs/data/updates.json docs/data/status.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Refresh HealthScope daily healthcare sources"
+            git push
+          fi
