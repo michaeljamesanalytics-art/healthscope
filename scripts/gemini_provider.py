@@ -10,7 +10,7 @@ import urllib.error
 import urllib.request
 
 API_BASE = "https://generativelanguage.googleapis.com/v1beta/models/"
-DEFAULT_MODEL = "gemini-2.5-flash-lite"
+DEFAULT_MODEL = "gemini-3.1-flash-lite"
 
 class GeminiRequestError(Exception):
     """Sanitized API failure. Raw response bodies are not exposed."""
