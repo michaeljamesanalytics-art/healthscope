@@ -371,7 +371,7 @@
         "url": "https://pubmed.ncbi.nlm.nih.gov/42763696/",
         "type": "Journal Article, Review",
         "method": "PubMed abstract via NCBI EFetch",
-        "retrieved_at": "2026-11-19T12:43:34+00:00",
+        "retrieved_at": "2026-11-19T13:04:05+00:00",
         "source_level": "Primary source excerpt",
         "reason": ""
       }
@@ -390,6 +390,7 @@
       "Separate measured outcomes from projected benefits, then identify possible confounders."
     ],
     "review_note": "A primary record may have been retrieved, but this automatic reading note does not claim independent impact validation. Read the source before citing conclusions.",
-    "ai_last_attempt_at": "2026-11-19T12:43:34+00:00"
+    "ai_last_attempt_at": "2026-11-19T13:04:05+00:00",
+    "ai_last_attempt_provider": "gemini"
   }
 ]
