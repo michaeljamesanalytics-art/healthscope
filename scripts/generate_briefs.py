@@ -84,7 +84,7 @@ KEYWORDS = {"digital health": 5, "health information": 7, "health data": 8,
 
 def clean(value, maxlen=1800):
     text = re.sub(r"<[^>]*>", " ", str(value or ""))
-    return re.sub(r"\\s+", " ", html.unescape(text)).strip()[:maxlen]
+    return re.sub(r"\s+", " ", html.unescape(text)).strip()[:maxlen]
 
 def fetch_json(url):
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept":"application/json"})
@@ -107,7 +107,7 @@ def extra_text(r):
     url = str(r.get("url") or "")
     if "clinicaltrials.gov/study/" in url:
         nct = url.rstrip("/").rsplit("/",1)[-1]
-        if not re.fullmatch(r"NCT\\d{8}",nct):
+        if not re.fullmatch(r"NCT\d{8}",nct):
             return ""
         try:
             study=fetch_json("https://clinicaltrials.gov/api/v2/studies/"+nct)
@@ -119,7 +119,7 @@ def extra_text(r):
         except (ValueError,urllib.error.URLError,TimeoutError):
             return ""
     if "pubmed.ncbi.nlm.nih.gov/" in url:
-        match=re.search(r"/(\\d+)/",url)
+        match=re.search(r"/(\d+)/",url)
         if not match:
             return ""
         # PubMed EFetch gives abstract text, if available
@@ -238,11 +238,11 @@ def main():
         old[r["url"]]=brief
     briefs=list(old.values())
     briefs.sort(key=lambda b:(b.get("mode","").startswith("Editorially"),b.get("published","")),reverse=True)
-    BRIEFS.write_text(json.dumps(briefs[:MAX_BRIEFS],indent=2,ensure_ascii=False)+"\\n",encoding="utf-8")
+    BRIEFS.write_text(json.dumps(briefs[:MAX_BRIEFS],indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
     STATUS.write_text(json.dumps({"last_generated":NOW,"available_briefs":len(briefs[:MAX_BRIEFS]),
         "new_briefs":len(selected),"ai_enriched":ai_count,
         "ai_enabled":bool(os.environ.get("OPENAI_API_KEY")),"items":statuses,
-        "limitations":"Automatic briefs may lack full source context; AI outputs are unreviewed and must be checked."},indent=2)+"\\n",encoding="utf-8")
+        "limitations":"Automatic briefs may lack full source context; AI outputs are unreviewed and must be checked."},indent=2)+"\n",encoding="utf-8")
     print("Briefs written:",len(briefs[:MAX_BRIEFS]),"new:",len(selected),"AI enriched:",ai_count)
 
 if __name__=="__main__":
