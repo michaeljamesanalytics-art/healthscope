@@ -1,9 +1,23 @@
 {
-  "last_generated": "2026-11-19T11:46:12+00:00",
+  "last_generated": "2026-11-19T12:43:34+00:00",
   "available_briefs": 5,
-  "new_briefs": 0,
+  "new_briefs": 1,
+  "ai_attempts": 1,
   "ai_enriched": 0,
-  "ai_enabled": false,
-  "items": [],
+  "ai_enabled": true,
+  "ai_verification": "failed_or_unverified",
+  "items": [
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42763696/",
+      "status": "ai_failed",
+      "reason": "HTTPError",
+      "http_status": 429
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42763696/",
+      "source_depth": "Primary source excerpt",
+      "mode": "Research reading notes \u2014 not a verified impact study"
+    }
+  ],
   "limitations": "Automatic briefs may lack full source context; AI outputs are unreviewed and must be checked."
 }
