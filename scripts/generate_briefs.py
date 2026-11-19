@@ -23,6 +23,7 @@ DATA = ROOT / "docs" / "data"
 FEED = DATA / "updates.json"
 BRIEFS = DATA / "briefs.json"
 STATUS = DATA / "brief_status.json"
+EDITORIAL = DATA / "editorial_briefs.json"
 NOW = datetime.now(timezone.utc).isoformat(timespec="seconds")
 MAX_NEW = 8
 MAX_BRIEFS = 100
@@ -94,10 +95,15 @@ def fetch_json(url):
 
 def fresh(r, days=180):
     try:
-        date = datetime.fromisoformat(str(r.get("published", ""))[:10]).date()
-        age = datetime.now(timezone.utc).date() - date
-        return timedelta(days=-2) <= age <= timedelta(days=days)
-    except (ValueError, TypeError):
+        value=str(r.get("published",""))[:10]
+        match=re.search(r"/news/item/(\d{2})-(\d{2})-(\d{4})(?:-|/|$)",str(r.get("url") or r.get("source_url") or ""))
+        if match:
+            day, month, year=map(int, match.groups())
+            value=datetime(year,month,day,tzinfo=timezone.utc).date().isoformat()
+        date=datetime.fromisoformat(value).date()
+        age=datetime.now(timezone.utc).date()-date
+        return timedelta(days=-2)<=age<=timedelta(days=days)
+    except (ValueError,TypeError):
         return False
 
 def score(r):
@@ -275,11 +281,15 @@ def ai_brief(r,base,packet):
 
 def main():
     feed=json.loads(FEED.read_text(encoding="utf-8"))
+    editorial=json.loads(EDITORIAL.read_text(encoding="utf-8")) if EDITORIAL.exists() else []
     previous=json.loads(BRIEFS.read_text(encoding="utf-8")) if BRIEFS.exists() else []
     old={b["source_url"]:b for b in previous if isinstance(b,dict) and b.get("source_url") and (str(b.get("mode","")).startswith("Editorially") or (fresh(b) and not str(b.get("title","")).startswith("Explore recently indexed")))}
-    ordered=sorted([r for r in feed if isinstance(r,dict) and str(r.get("url","")).startswith("https://") and fresh(r) and r.get("source_type") != "Research portal"],
+    for item in editorial:
+        if isinstance(item,dict) and item.get("source_url"):
+            old[item["source_url"]]=item
+    ordered=sorted([r for r in feed if isinstance(r,dict) and str(r.get("url","")).startswith("https://") and fresh(r) and r.get("source_type") != "Research portal" and not str(r.get("title","")).startswith("Explore ") and not (r.get("source_type") == "Clinical trial registry" and "/study/NCT" not in r.get("url",""))],
        key=lambda r:(score(r),r.get("published","")),reverse=True)
-    selected=[r for r in ordered if score(r)>=4 and (r["url"] not in old or not old[r["url"]].get("source_documents"))][:MAX_NEW]
+    selected=[r for r in ordered if score(r)>=4 and (r["url"] not in old or (not old[r["url"]].get("source_documents") and not str(old[r["url"]].get("mode","")).startswith("Editorially")))][:MAX_NEW]
     ai_count=0
     statuses=[]
     for r in selected:
