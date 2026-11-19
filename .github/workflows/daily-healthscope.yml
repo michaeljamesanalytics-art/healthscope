@@ -21,6 +21,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Check research generator and evidence tests
+        run: |
+          python -m py_compile scripts/research_sources.py scripts/generate_briefs.py scripts/update_feed.py
+          python -m unittest discover -s tests -v
       - name: Fetch public health sources and optionally email digest
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
