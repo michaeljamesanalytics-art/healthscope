@@ -39,7 +39,7 @@ class EvidencePipelineTests(unittest.TestCase):
                 "study_type":"","reason":"unavailable"}
         brief=gen.fallback(record,packet)
         self.assertIn("not established",brief["evidence_status"].lower())
-        self.assertIn("Not established",brief["before"] if "Not established" in brief["before"] else "Not established")
+        self.assertIn("does not establish",brief["before"])
         self.assertEqual(len(brief["source_documents"]),1)
         self.assertIn("power_bi_deliverable",brief["analyst_exercise"])
         self.assertEqual(brief["support_quotes"],[])
