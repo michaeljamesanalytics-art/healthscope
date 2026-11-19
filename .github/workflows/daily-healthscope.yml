@@ -30,7 +30,7 @@ jobs:
           python-version: '3.12'
       - name: Check research generator and evidence tests
         run: |
-          python -m py_compile scripts/research_sources.py scripts/generate_briefs.py scripts/update_feed.py
+          python -m py_compile scripts/research_sources.py scripts/gemini_provider.py scripts/generate_briefs.py scripts/update_feed.py
           python -m unittest discover -s tests -v
       - name: Fetch public health sources and optionally email digest
         env:
@@ -43,6 +43,9 @@ jobs:
         run: python scripts/update_feed.py
       - name: Generate evidence-aware intelligence briefs
         env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          HEALTHSCOPE_AI_PROVIDER: gemini
+          HEALTHSCOPE_GEMINI_MODEL: gemini-2.5-flash-lite
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           HEALTHSCOPE_AI_MODEL: gpt-4.1-mini
           HEALTHSCOPE_MAX_AI: '1'
