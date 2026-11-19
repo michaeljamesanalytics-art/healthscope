@@ -335,62 +335,80 @@
     "published": "2026-08-11",
     "source_url": "https://pubmed.ncbi.nlm.nih.gov/42763696/",
     "evidence_type": "Research citation",
-    "evidence_status": "Measured improvement not established by the automated source review",
-    "mode": "Research reading notes — not a verified impact study",
+    "evidence_status": "Source-anchored synthesis, not independent outcome verification",
+    "mode": "AI-assisted primary-source analysis (gemini) · requires human review",
     "generated_at": "2026-11-19",
-    "what_happened": "PubMed · Int J Endocrinol Metab published a primary-source record titled “Artificial Intelligence-Driven Digital Tools for Diabetes Self-management in Children: A Scoping Review..” The original article, abstract or registry entry was retrieved for study. Indexed research citation. Verify study design, sample, results and limitations in the original publication.",
-    "before": "The available source metadata does not establish the exact prior workflow. To make a valid before-and-after comparison, review the publication and identify the setting, actors, existing processes and baseline metrics.",
-    "what_changed": "The source identifies a research topic; verify the actual intervention and comparison group in the full paper before describing a change.",
-    "evidence": "An indexed research citation is not enough to establish an effect. Read the methods, numerical results, and uncertainties in the primary paper.",
-    "limitations": "No independent causal evaluation has been performed for this auto-generated briefing. Do not infer effectiveness, national scale-up or improvements in mortality from announcements, metadata or registrations.",
+    "what_happened": "A scoping review was conducted to synthesize existing evidence on AI-driven digital tools designed for pediatric diabetes self-management, analyzing 19 studies published between 2010 and 2025.",
+    "before": "Not established in the source reviewed. To establish a baseline, one would need to research historical pediatric diabetes management outcomes prior to the introduction of AI-driven digital tools, specifically comparing traditional manual logging methods against automated AI-assisted systems.",
+    "what_changed": "The review categorized AI-driven tools into specific functional domains, including glucose prediction, insulin dosing optimization, personalized education, and remote monitoring, while identifying persistent ethical and implementation challenges.",
+    "evidence": "The study synthesized findings from 19 selected articles, noting that 8 studies focused on glucose prediction, 4 on insulin dosing, 6 on behavioral support, 5 on telemedicine, and 5 on ethical or implementation challenges.",
+    "limitations": "The source is a scoping review, not a clinical trial; it identifies potential rather than proven clinical outcomes. It highlights a need for future research regarding long-term evaluations, diverse population inclusion, and rigorous algorithm performance assessment.",
     "vocabulary": [
       {
-        "term": "Sensitivity",
-        "meaning": "The proportion of people with a condition correctly detected by a test or model."
+        "term": "Scoping Review",
+        "meaning": "A research method used to map the available evidence on a topic, identifying key concepts and gaps rather than providing a definitive clinical answer."
       },
       {
-        "term": "Specificity",
-        "meaning": "The proportion of people without a condition correctly classified."
+        "term": "Glycemic Monitoring",
+        "meaning": "The process of tracking blood glucose levels to manage diabetes, often involving continuous sensors or manual testing."
       },
       {
-        "term": "External validation",
-        "meaning": "Testing a model using data from settings separate from development."
+        "term": "Clinical Decision-Support Systems",
+        "meaning": "Health information technology systems designed to provide clinicians or patients with knowledge and person-specific information to enhance health decisions."
       }
     ],
     "metrics": [
-      "Sensitivity and specificity on independent clinical datasets",
-      "Median review turnaround time for eligible cases",
-      "False-alert rate in the intended use population"
+      "Average time spent in target glucose range (TIR) per patient cohort",
+      "Frequency of AI-suggested insulin dose adjustments accepted by users",
+      "User engagement rate measured by daily application login frequency"
     ],
-    "bi_lessons": "Define the unit of analysis, baseline and denominator before interpreting this development. Propose KPIs relevant to the intervention and verify whether observed changes can be attributed to it.",
-    "question": "What primary-source evidence would allow us to distinguish a promising announcement from a measurable improvement in healthcare delivery?",
-    "research_depth": "Primary source excerpt",
+    "bi_lessons": "When analyzing healthcare interventions, categorize disparate data points into functional domains (e.g., clinical vs. behavioral) to identify gaps in service delivery. Always distinguish between 'potential' benefits and 'measured' clinical outcomes.",
+    "question": "How can BI developers effectively map heterogeneous study data into a unified schema to support comparative analysis of AI tool efficacy?",
+    "research_depth": "Primary source analyzed with matched quotations",
     "source_documents": [
       {
         "title": "Artificial Intelligence-Driven Digital Tools for Diabetes Self-management in Children: A Scoping Review.",
         "url": "https://pubmed.ncbi.nlm.nih.gov/42763696/",
         "type": "Journal Article, Review",
         "method": "PubMed abstract via NCBI EFetch",
-        "retrieved_at": "2026-11-19T13:04:05+00:00",
+        "retrieved_at": "2026-11-19T13:05:36+00:00",
         "source_level": "Primary source excerpt",
         "reason": ""
       }
     ],
-    "support_quotes": [],
+    "support_quotes": [
+      {
+        "section": "what_happened",
+        "quote": "This scoping review aimed to synthesize the existing evidence on AI-driven digital tools for pediatric diabetes self-management",
+        "source_url": "https://pubmed.ncbi.nlm.nih.gov/42763696/"
+      },
+      {
+        "section": "what_changed",
+        "quote": "8 studies focused primarily on glucose prediction, glycemic monitoring, or pattern recognition; 4 studies evaluated insulin dosing optimization",
+        "source_url": "https://pubmed.ncbi.nlm.nih.gov/42763696/"
+      },
+      {
+        "section": "evidence",
+        "quote": "AI-based digital tools have considerable potential to support diabetes self-management in children. Future research should prioritize long-term evaluations",
+        "source_url": "https://pubmed.ncbi.nlm.nih.gov/42763696/"
+      }
+    ],
     "analyst_exercise": {
-      "business_question": "Does introducing an AI triage system shorten urgent-case review time without increasing missed findings?",
-      "dataset_design": "Synthetic fact_scan with scan_time, flag_time, clinician_review_time, model_flag, confirmed_finding and site.",
-      "data_quality_check": "Check missing confirmation outcomes, timestamp order and different hospital case mixes.",
-      "power_bi_deliverable": "Build sensitivity, specificity, false-alert and median turnaround charts stratified by site.",
-      "sql_practice": "Use conditional aggregation to compute true positives, false positives, false negatives and true negatives."
+      "business_question": "Which category of AI-driven tools shows the highest frequency of reported implementation in the literature?",
+      "dataset_design": "Create a table with columns: Study_ID, Publication_Year, Intervention_Category (e.g., Glucose Prediction, Insulin Dosing), and Study_Type.",
+      "data_quality_check": "Verify that the sum of studies across categories accounts for the overlapping nature of the 19 studies mentioned in the source.",
+      "power_bi_deliverable": "A treemap visualization showing the distribution of studies across the five identified functional domains.",
+      "sql_practice": "SELECT Intervention_Category, COUNT(Study_ID) FROM Study_Table GROUP BY Intervention_Category ORDER BY COUNT(Study_ID) DESC;"
     },
     "reading_tasks": [
       "Open the primary source. Identify its authors or issuing organization, date and intended audience.",
       "Find the baseline workflow and the actual intervention; do not assume either is described.",
       "Separate measured outcomes from projected benefits, then identify possible confounders."
     ],
-    "review_note": "A primary record may have been retrieved, but this automatic reading note does not claim independent impact validation. Read the source before citing conclusions.",
-    "ai_last_attempt_at": "2026-11-19T13:04:05+00:00",
-    "ai_last_attempt_provider": "gemini"
+    "review_note": "Original-source text was retrieved and at least one exact evidence quotation was matched automatically. This does not guarantee the accuracy of all AI interpretations. Review the full source before citing.",
+    "ai_last_attempt_at": "2026-11-19T13:05:36+00:00",
+    "ai_last_attempt_provider": "gemini",
+    "ai_last_attempt_model": "gemini-3.1-flash-lite",
+    "ai_provider": "gemini"
   }
 ]
