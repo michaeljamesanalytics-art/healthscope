@@ -1,0 +1,42 @@
+[
+  {
+    "id": "who-africa-his",
+    "title": "What WHO's Africa health-information report actually tells us",
+    "source_title": "New WHO report reveals critical gaps in Africa's health information systems",
+    "source": "WHO Regional Office for Africa",
+    "published": "2026-11-10",
+    "source_url": "https://www.afro.who.int/news/new-who-report-reveals-critical-gaps-africas-health-information-systems",
+    "evidence_type": "Official WHO assessment announcement",
+    "evidence_status": "Descriptive assessment; not intervention impact",
+    "mode": "Editorially prepared example",
+    "generated_at": "2026-11-19",
+    "what_happened": "WHO reported findings from an assessment of health information systems in 40 African countries. The findings describe uneven system maturity and important facility-level gaps in data analysis and quality assessment.",
+    "before": "The assessment describes existing weaknesses, including inadequate capacity in many countries to analyze facility data and systematically check its quality. It does not establish a single historical process shared by all 40 countries.",
+    "what_changed": "What is new here is the published regional assessment and clearer evidence about where capacity gaps exist. The report does not itself demonstrate that a new technology has improved health outcomes.",
+    "evidence": "Among 40 assessed countries, about 43% reported sufficient facility-level health-data analysis capacity and 25% reported sufficient capacity to assess data quality. These measure different capabilities; the percentage of hospitals with each capability cannot be inferred.",
+    "limitations": "The statistics describe reported capabilities at country level and cannot show which specific countries have both capacities, whether individual decisions are wrong, or whether any particular app improves patient outcomes.",
+    "vocabulary": [
+      {
+        "term": "Health information system (HIS)",
+        "meaning": "The people, processes and technologies used to collect, manage, analyze and use health information."
+      },
+      {
+        "term": "Data quality assessment",
+        "meaning": "Checking whether data is sufficiently accurate, complete, consistent and timely for a particular decision."
+      },
+      {
+        "term": "Facility-level capacity",
+        "meaning": "The ability of healthcare facilities and their teams to perform a task such as analysis or verification."
+      }
+    ],
+    "bi_lessons": "Design a health-information quality dashboard before drawing conclusions from the data. Define the unit of analysis: country, facility, report, or patient. Distinguish the ability to produce an analysis from the reliability of its underlying records.",
+    "metrics": [
+      "Timely report submission rate = reports received on time ÷ reports expected",
+      "Completeness rate = required fields populated ÷ required fields expected",
+      "Duplicate record rate = suspected duplicate records ÷ total records"
+    ],
+    "question": "If a country can analyze healthcare data but cannot adequately verify its quality, which additional checks are needed before managers use the results to allocate resources?",
+    "source_excerpt": "WHO regional health information systems assessment; 40 countries. Refer to the linked WHO announcement and underlying report for the exact definitions.",
+    "review_note": "Carefully summarized example anchored to a WHO source; the listed metrics are analyst suggestions, not reported WHO outcomes."
+  }
+]
