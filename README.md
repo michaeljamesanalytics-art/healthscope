@@ -41,13 +41,25 @@ It saves public source metadata in `docs/data/updates.json` and source status in
 
 If the workflow cannot commit its data, check **Settings → Actions → General → Workflow permissions** to ensure the GitHub Actions token can write repository contents.
 
+## How a HealthScope research dossier is prepared
+
+1. Select recent, relevant healthcare developments rather than every headline.
+2. Retrieve original source material: WHO public articles, PubMed abstracts via NCBI EFetch, or ClinicalTrials.gov protocol and results records.
+3. Explicitly distinguish an announcement, research finding, study registration and measured improvement.
+4. Teach the old workflow, what changed, the evidence, professional vocabulary and an applied healthcare BI/SQL exercise.
+5. Show the primary-source link, retrieval depth, and any short quotations verified against the fetched source text.
+6. Require a human review before external publication of clinical effectiveness or system impact claims.
+
+Carefully prepared teaching cases live in docs/data/editorial_briefs.json and are retained across daily feed updates.
+
+IMPORTANT: A single WHO news item or PubMed abstract cannot substitute for a full multi-source literature review. Full texts may be inaccessible; separate reports can be needed to establish the previous workflow and demonstrated outcomes. The app labels missing evidence instead of inventing it.
 ## Optional AI-enhanced briefs
 
 **The app works without an AI subscription or key.** By default, new briefs are structured, source-linked learning outlines based on limited feed metadata. They explain the news at a high level, but they cannot establish previous workflows or measured improvements without supporting evidence.
 
-For more detailed AI-assisted explanations, create a paid OpenAI API key and add it as a GitHub Actions **repository secret** named `OPENAI_API_KEY`. Do not place the key in browser code or commit it to GitHub. The workflow defaults to model `gpt-4.1-mini` and limits processing to 5 newly selected briefs per daily run. API usage is billed separately by the provider; monitor usage and set a budget. A source excerpt may be sent to the API, but never identifiable patient data.
+For more detailed AI-assisted explanations, create a paid OpenAI API key and add it as a GitHub Actions **repository secret** named `OPENAI_API_KEY`. Do not place the key in browser code or commit it to GitHub. The workflow defaults to model `gpt-4.1-mini` and limits processing to 3 newly selected briefs per daily run. API usage is billed separately by the provider; monitor usage and set a budget. A source excerpt may be sent to the API, but never identifiable patient data.
 
-**Important:** AI-enhanced briefs are *unreviewed educational summaries*, not independently validated healthcare evidence. The source record may not contain enough facts to make a meaningful before-versus-after comparison, and the app will acknowledge that limitation. Review original sources before citing or making decisions. The generation status is saved in `docs/data/brief_status.json` after the run.
+**Important:** AI-enhanced briefs are *unreviewed educational summaries*, not independently validated healthcare evidence. They must contain a short quote that matches the retrieved source text exactly, or the app retains a conservative reading note. The source record may not contain enough facts to make a meaningful before-versus-after comparison, and the app will acknowledge that limitation. Review original sources before citing or making decisions. The generation status is saved in `docs/data/brief_status.json` after the run.
 
 ## Optional daily email
 
