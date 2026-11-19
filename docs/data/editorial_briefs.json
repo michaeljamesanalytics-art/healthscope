@@ -66,5 +66,265 @@
       "Determine which additional data would be needed to calculate how many countries have both capacities."
     ],
     "review_note": "Prepared from the cited WHO regional assessment findings. The numerical claims are assessment findings; the BI metrics and exercises are suggestions, not documented WHO interventions or measured outcomes."
+  },
+  {
+    "id": "case-rwanda-nhic",
+    "title": "Rwanda: From disconnected reporting to a national Health Intelligence Center",
+    "source": "Rwanda Ministry of Health and NHIC Engineering Library",
+    "source_title": "National Health Intelligence Center",
+    "published": "2026-11-01",
+    "source_url": "https://docs.nhic.moh.gov.rw/en/platform/",
+    "evidence_type": "Official government platform and engineering documentation",
+    "evidence_status": "Documented architecture and launch; downstream health-outcome improvements not independently established",
+    "mode": "Editorially prepared multi-source case study · implementation versus outcome distinguished",
+    "research_depth": "Government technical documentation, ministry announcement and implementation-partner account",
+    "generated_at": "2026-11-19",
+    "what_happened": "Rwanda launched its National Health Intelligence Center in April 2025. Official documentation describes a platform bringing information from nine national health information systems into a unified environment for analytics and decision-making. The engineering documentation describes API-driven pipelines and staging/validation architecture.",
+    "before": "Rwanda already operated DHIS2 and other digital systems, but information across health programmes could remain fragmented. An implementation-partner account describes previous end-of-month manual reporting and consolidation taking days in some settings. This historical description is not proof that every facility worked identically.",
+    "what_changed": "The national platform integrates routine reporting, community, disease surveillance and other sources. According to NHIC engineering documentation, Prefect pipelines retrieve data via REST APIs and land raw records in PostgreSQL staging tables, after which unified analytical models and validation processes support dashboards.",
+    "evidence": "The April 2025 ministry launch and NHIC documentation establish the platform's existence and architecture. They do not alone demonstrate specific reductions in mortality, nationwide reporting errors or clinical waiting times. Claims of operational efficiency from implementation partners need independent baseline-to-follow-up measurement.",
+    "limitations": "A national dashboard does not guarantee that every contributing source is complete or current. Before attributing better outcomes to NHIC, obtain platform coverage, pipeline uptime, source-data completeness, quality-audit results and measured changes in management decisions.",
+    "vocabulary": [
+      {
+        "term": "Interoperability",
+        "meaning": "The ability of separate health information systems to exchange and use data."
+      },
+      {
+        "term": "ETL/ELT",
+        "meaning": "Processes for extracting, loading and transforming information from operational systems into analytics-ready data."
+      },
+      {
+        "term": "Staging table",
+        "meaning": "An intermediate table containing imported source records before validation or modelling."
+      },
+      {
+        "term": "Data lineage",
+        "meaning": "A traceable record of where a dashboard number came from and how it was transformed."
+      }
+    ],
+    "metrics": [
+      "Data refresh latency: time between source event and availability in analytics layer",
+      "Source completeness: required records received ÷ required records expected",
+      "Reconciliation error rate: mismatched values between source and unified warehouse ÷ records checked"
+    ],
+    "bi_lessons": "Rwanda provides a realistic example of health data engineering as the foundation of trustworthy BI. Learn to design ingestion, staging, validation, transformation and visualization layers; identify whether a system is genuinely real-time or batch-updated. Always retain data provenance.",
+    "question": "How would you validate a national disease surveillance chart if one district has stopped sending reports?",
+    "analyst_exercise": {
+      "business_question": "Which public-health programmes supply accurate and timely information to the national intelligence platform?",
+      "dataset_design": "Using fictional data, build dim_program, dim_facility, dim_date, fact_extract_run and fact_validation_error; keep staging and curated data separate.",
+      "data_quality_check": "Check null facility identifiers, missing reporting periods, duplicate feeds, failed API requests, reconciliation mismatches and freshness lag.",
+      "power_bi_deliverable": "Design a source health dashboard showing refresh success, field completeness, pipeline latency and discrepancies by system and district.",
+      "sql_practice": "Use ROW_NUMBER to detect repeat extracts per facility and month; compute current-to-source reconciliation by dataset and reporting period."
+    },
+    "source_documents": [
+      {
+        "title": "Rwanda NHIC: Platform overview",
+        "url": "https://docs.nhic.moh.gov.rw/en/platform/",
+        "type": "Ministry technical platform documentation",
+        "method": "Official engineering documentation",
+        "source_level": "Original technical source",
+        "retrieved_at": "Referenced November 2026"
+      },
+      {
+        "title": "Rwanda NHIC: Data source engineering",
+        "url": "https://docs.nhic.moh.gov.rw/en/platform/data-sources/",
+        "type": "Ministry technical documentation",
+        "method": "Official data pipelines and staging description",
+        "source_level": "Original technical source",
+        "retrieved_at": "Referenced November 2026"
+      },
+      {
+        "title": "Ministry announcement of center launch",
+        "url": "https://www.moh.gov.rw/sites-apps/nhic",
+        "type": "Ministry announcement",
+        "method": "Government contextual publication",
+        "source_level": "Official announcement",
+        "retrieved_at": "Referenced November 2026"
+      },
+      {
+        "title": "Implementation partner's account of historical manual reporting",
+        "url": "https://vercel-prod.institute.global/insights/public-services/how-rwanda-is-using-data-to-deliver-better-health-care",
+        "type": "Implementation partner report",
+        "method": "Context on earlier processes; do not treat as independent impact evaluation",
+        "source_level": "Partner perspective",
+        "retrieved_at": "Referenced November 2026"
+      }
+    ],
+    "support_quotes": [],
+    "reading_tasks": [
+      "Identify the nine source systems in the NHIC documentation and the expected refresh frequency of each.",
+      "Sketch an ingestion-to-dashboard architecture and mark where data quality checks should occur.",
+      "Distinguish a platform launch from a measured improvement in patient outcomes.",
+      "Draft a data lineage record for one vaccination indicator."
+    ],
+    "review_note": "Sources document the platform's architecture and implementation context. Improved mortality or efficiency cannot be inferred solely from technical deployment. KPIs and data model are educational proposals."
+  },
+  {
+    "id": "case-kenya-shr",
+    "title": "Kenya: Building a Shared Health Record that can follow patients",
+    "source": "Kenya Digital Health Agency",
+    "source_title": "National Shared Health Record and FHIR patient summary",
+    "published": "2026-10-02",
+    "source_url": "https://www.dha.go.ke/digital-health-superhighway",
+    "evidence_type": "Official implementation standards and patient-record platform documentation",
+    "evidence_status": "National standards and infrastructure documented; complete nationwide interoperability and outcome benefits not established",
+    "mode": "Editorially prepared multi-source case study · interoperability lesson",
+    "research_depth": "Official Digital Health Agency documentation, FHIR implementation guides and legal framework",
+    "generated_at": "2026-11-19",
+    "what_happened": "Kenya's Digital Health Agency is developing a national Health Information Exchange and Shared Health Record. Its official implementation guides specify structured patient summaries and a FHIR-based exchange approach to support the movement of clinical information across systems.",
+    "before": "Kenya used separate systems such as KHIS/DHIS2 for routine reporting, KenyaEMR for HIV care, and community information applications. The Digital Health Agency's background guidance describes why this fragmented landscape needed interoperability. A patient's complete history was not necessarily available wherever they sought care.",
+    "what_changed": "The Health Information Exchange provides shared components, including patient and facility registries, terminology, interoperable APIs and a Shared Health Record. Official guidance documents the mapping of patient summary resources and APIs for exchanging FHIR bundles. Authorized access and privacy safeguards are necessary.",
+    "evidence": "Official digital health standards and implementation guides demonstrate a defined architecture and governance programme. Publishing standards or connecting some systems does not prove that every provider can see every patient record or that repeat testing has fallen nationally.",
+    "limitations": "Challenges include reliable patient matching, quality of source EHR data, consent, security, rural connectivity, integration cost and actual adoption by facilities. Service outcomes require measured baselines, not only records of system deployment.",
+    "vocabulary": [
+      {
+        "term": "FHIR",
+        "meaning": "An HL7 standard describing structured healthcare resources and ways systems exchange them."
+      },
+      {
+        "term": "Shared Health Record (SHR)",
+        "meaning": "A coordinated longitudinal record designed to make relevant patient information accessible across participating care settings."
+      },
+      {
+        "term": "Patient summary",
+        "meaning": "A standardized minimum set of clinically important patient information for continuity of care."
+      },
+      {
+        "term": "Master Patient Index",
+        "meaning": "A registry or matching service designed to connect records belonging to the same individual across systems."
+      }
+    ],
+    "metrics": [
+      "Successfully matched patient records ÷ cross-facility matching attempts",
+      "Relevant prior records retrievable during referrals ÷ referrals audited",
+      "Repeat laboratory tests within a defined clinical window ÷ eligible referred patients"
+    ],
+    "bi_lessons": "Interoperability is more than copying paper folders into software. Standardize identifiers, clinical terminology, date fields and resource schemas, then measure whether patient information actually moves securely between facilities and helps care teams.",
+    "question": "What would you need to measure to show that a Shared Health Record reduced unnecessary repeat laboratory tests?",
+    "analyst_exercise": {
+      "business_question": "Can care providers retrieve relevant patient records across participating facilities without increasing privacy or duplicate-record risks?",
+      "dataset_design": "Fictional dim_facility, dim_patient_pseudonym, dim_date, fact_record_request and fact_referral; use pseudonyms only.",
+      "data_quality_check": "Assess patient matching errors, incomplete records, mismatched timestamps, authorization failures and duplicate patient identifiers.",
+      "power_bi_deliverable": "Create a referral continuity dashboard comparing request success rates, record completeness, and median retrieval time by facility.",
+      "sql_practice": "JOIN pseudonymized referrals to record-request events and calculate access success; avoid exposing identifying health details."
+    },
+    "source_documents": [
+      {
+        "title": "Digital Health Agency: Digital Health Superhighway",
+        "url": "https://www.dha.go.ke/digital-health-superhighway",
+        "type": "Government platform description",
+        "method": "Official service overview",
+        "source_level": "Primary government source",
+        "retrieved_at": "Referenced November 2026"
+      },
+      {
+        "title": "Kenya Patient Summary: Background",
+        "url": "https://fhir.dha.go.ke/ig/kps/background.html",
+        "type": "Official FHIR implementation guide",
+        "method": "Background on existing systems and desired interoperability",
+        "source_level": "Primary technical source",
+        "retrieved_at": "Referenced November 2026"
+      },
+      {
+        "title": "Shared Health Record introduction",
+        "url": "https://hie-docs.dha.go.ke/docs/sharedHealthRecord/gettingStarted/intro",
+        "type": "Government API documentation",
+        "method": "API and shared record operations",
+        "source_level": "Primary technical source",
+        "retrieved_at": "Referenced November 2026"
+      }
+    ],
+    "support_quotes": [],
+    "reading_tasks": [
+      "Find the Kenya Patient Summary guide and identify core patient data resources.",
+      "Distinguish technical API availability from nationwide deployment.",
+      "List how an HIE should check access permissions before sharing a record.",
+      "Specify metrics for patient-matching accuracy and referral continuity."
+    ],
+    "review_note": "Claims describe officially documented design and development, not independent evidence of reduced costs or mortality. Analyst exercise data is fictional."
+  },
+  {
+    "id": "case-bauchi-zero-dose",
+    "title": "Nigeria: How Bauchi used community data to find children missed by vaccination services",
+    "source": "Sabin Vaccine Institute; WHO Regional Office for Africa",
+    "published": "2026-03-28",
+    "source_title": "Reaching Zero-Dose Children in Bauchi State, Nigeria",
+    "source_url": "https://www.sabin.org/resources/reaching-zero-dose-children-in-bauchi-state-nigeria/",
+    "evidence_type": "Documented community immunization project and related public-health reporting",
+    "evidence_status": "117 zero-dose and 181 defaulter children reached in a selected local project; national impact and mortality reduction not demonstrated",
+    "mode": "Editorially prepared multi-source case study · service outputs distinguished from outcomes",
+    "research_depth": "Project implementation account with additional WHO state-level reporting",
+    "generated_at": "2026-11-19",
+    "what_happened": "A community-led immunization tracking project in selected Bauchi State wards sought out children missed by routine services. Community registers, local dashboards and reconciliation with facility records were used to identify zero-dose children and children who had missed later vaccinations.",
+    "before": "Routine facility data described doses delivered but could fail to fully identify children in settlements poorly reached by services. Caregivers could be waiting for vaccination teams; without community enumeration, some missing children were not adequately visible in facility reporting.",
+    "what_changed": "Community volunteers and health teams used household line-listing, local registers, public community tracking boards and regular reconciliation with healthcare facilities. These lists supported outreach and follow-up rather than relying only on individuals appearing in routine facility datasets.",
+    "evidence": "The Sabin case study reports 117 previously zero-dose children and 181 defaulters reached with vaccination through the tracking system in its target communities. These are documented service outputs for a specific intervention, not the number of children reached across Nigeria or proof of lower mortality.",
+    "limitations": "A reported number reached does not prove complete population coverage, durable completion of all vaccine schedules, or impact on disease incidence. Population enumeration, catchment boundaries, comparison periods and continued follow-up are needed.",
+    "vocabulary": [
+      {
+        "term": "Zero-dose child",
+        "meaning": "A child who has not received a first dose of an essential routine vaccine, frequently operationalized with DTP1."
+      },
+      {
+        "term": "Defaulter",
+        "meaning": "A person who started but did not complete a scheduled vaccination or follow-up appointment within the expected interval."
+      },
+      {
+        "term": "Microplanning",
+        "meaning": "Local planning that identifies eligible populations, settlements, service gaps and outreach actions."
+      },
+      {
+        "term": "Record reconciliation",
+        "meaning": "Checking information across community registers and facility records to correct omissions and duplicates."
+      }
+    ],
+    "metrics": [
+      "Zero-dose children newly reached ÷ eligible zero-dose children identified",
+      "Defaulters contacted and vaccinated ÷ defaulters identified",
+      "Community-register reconciliation coverage: settlements reconciled ÷ settlements targeted"
+    ],
+    "bi_lessons": "Reliable healthcare analytics must account for the people absent from facility records. A high-quality database of visitors can still miss entire communities. The relevant denominator is the eligible population, not just patients already seen.",
+    "question": "If a project vaccinates 117 zero-dose children, what additional information is required to calculate coverage and determine whether the intervention reduced inequity?",
+    "analyst_exercise": {
+      "business_question": "Which communities contain the largest number of children not reached by routine immunization, and which follow-up actions are effective?",
+      "dataset_design": "Create fictional dim_settlement, dim_child_pseudonym, dim_vaccine, fact_community_visit and fact_vaccination; separate identified children from completed doses.",
+      "data_quality_check": "Check duplicated child records, missing settlements, inaccurate dates, inconsistent doses and children without home registration.",
+      "power_bi_deliverable": "Build an outreach microplanning dashboard showing missing children, follow-up conversion, missed settlements and vaccine-stock availability.",
+      "sql_practice": "LEFT JOIN community register against vaccination events to locate children with no documented first dose; calculate follow-up reach with a defined eligible denominator."
+    },
+    "source_documents": [
+      {
+        "title": "Sabin Vaccine Institute: Reaching Zero-Dose Children in Bauchi",
+        "url": "https://www.sabin.org/resources/reaching-zero-dose-children-in-bauchi-state-nigeria/",
+        "type": "Original implementation case report",
+        "method": "Project report of community dashboards and reported vaccinations",
+        "source_level": "Implementation primary source",
+        "retrieved_at": "Referenced November 2026"
+      },
+      {
+        "title": "WHO Africa: Bauchi's data-driven community vaccination",
+        "url": "https://www.afro.who.int/fr/node/23197",
+        "type": "Official health agency reporting",
+        "method": "State-level context from 2026 campaign, distinct from the local Sabin project",
+        "source_level": "Related institutional source",
+        "retrieved_at": "Referenced November 2026"
+      },
+      {
+        "title": "Gavi account of reaching missed children in rural Nigeria",
+        "url": "https://www.gavi.org/vaccineswork/going-extra-miles-rural-nigeria-find-children-missing-vaccines",
+        "type": "Programme reporting",
+        "method": "Supporting implementation context; not independent causal study",
+        "source_level": "Related field account",
+        "retrieved_at": "Referenced November 2026"
+      }
+    ],
+    "support_quotes": [],
+    "reading_tasks": [
+      "Review the project's target wards and distinguish local outputs from state-wide vaccination totals.",
+      "Determine the denominator needed to turn 117 vaccinated children into a valid coverage percentage.",
+      "Identify children likely missing from both household and facility registers.",
+      "Separate programmatic results from long-term disease and mortality outcomes."
+    ],
+    "review_note": "The reported 117 and 181 are outputs of a documented local intervention, not proof of statewide coverage or reduced mortality. Keep the local project separate from the later 2026 state-level campaign."
   }
 ]
