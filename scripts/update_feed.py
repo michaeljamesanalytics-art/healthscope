@@ -10,7 +10,7 @@ import smtplib
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from email.message import EmailMessage
 from pathlib import Path
 
@@ -47,12 +47,29 @@ def textclean(value, size=440):
 def dateclean(value):
     if not value:
         return ""
-    if re.match(r"^\d{4}-\d{2}-\d{2}", str(value)):
-        return str(value)[:10]
+    s = str(value).strip()
+    match = re.search(r"(\\d{4})[-/](\\d{1,2})[-/](\\d{1,2})", s)
+    if match:
+        try:
+            return datetime(int(match.group(1)), int(match.group(2)), int(match.group(3)), tzinfo=timezone.utc).date().isoformat()
+        except ValueError:
+            pass
+    for fmt in ("%Y %b %d", "%Y %B %d", "%Y %b", "%Y %B"):
+        try:
+            return datetime.strptime(s[:22], fmt).date().isoformat()
+        except ValueError:
+            continue
     try:
-        return email.utils.parsedate_to_datetime(value).date().isoformat()
+        return email.utils.parsedate_to_datetime(s).date().isoformat()
     except (ValueError, TypeError, OverflowError):
         return ""
+
+def recent(record, days=180):
+    date = dateclean(record.get("published"))
+    if not date:
+        return False
+    age = datetime.now(timezone.utc).date() - datetime.fromisoformat(date).date()
+    return timedelta(days=-2) <= age <= timedelta(days=days)
 
 def metadata(title, url, source, kind, date, description):
     if not url.startswith("https://") or not title:
@@ -150,7 +167,7 @@ def main():
     DATA.mkdir(parents=True, exist_ok=True)
     old = load(UPDATES, [])
     old_urls = {r.get("url") for r in old}
-    combined = {r["url"]: r for r in old if r.get("url")}
+    combined = {r["url"]: r for r in old if r.get("url") and recent(r) and r.get("source_type") != "Research portal"}
     states, collected, ok = {}, [], 0
     for name, fn in (("WHO", who_feed), ("PubMed", pubmed_feed), ("ClinicalTrials.gov", clinical_trials)):
         try:
@@ -162,7 +179,8 @@ def main():
             states[name] = {"status": "error", "detail": str(exc)[:130]}
     if ok:
         for r in collected:
-            combined[r["url"]] = r
+            if recent(r):
+                combined[r["url"]] = r
         recent = sorted(combined.values(), key=lambda r: r.get("published", ""), reverse=True)[:150]
         UPDATES.write_text(json.dumps(recent, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     status = {"mode": "Automated source metadata", "last_attempted_refresh": NOW,
@@ -170,7 +188,7 @@ def main():
               "sources": states, "note": "Source availability and scheduled run times are not guaranteed."}
     STATUS.write_text(json.dumps(status, indent=2) + "\n", encoding="utf-8")
     if ok:
-        added = [r for r in collected if r.get("url") not in old_urls]
+        added = [r for r in collected if recent(r) and r.get("url") not in old_urls]
         try:
             email_digest(sorted(added, key=lambda r: r.get("published", ""), reverse=True))
         except Exception as exc:
