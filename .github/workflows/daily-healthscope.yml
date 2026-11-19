@@ -1,6 +1,11 @@
 name: Update HealthScope daily
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/**'
+      - '.github/workflows/daily-healthscope.yml'
   schedule:
     # 06:00 UTC is 07:00 West Africa Time
     - cron: '0 6 * * *'
