@@ -2,7 +2,7 @@
 
 A source-linked healthcare learning application built for a developing healthcare data analyst and business intelligence developer.
 
-**Current status:** Initial web application and daily public-source collector committed to GitHub. GitHub Pages still needs to be enabled in repository settings. The scheduled data ingestion has not yet been tested through an Actions run. Optional email requires SMTP secrets.
+**Current status:** GitHub Pages is published and daily source collection has passed GitHub Actions tests. Gemini AI enrichment is being validated separately. Optional email requires SMTP secrets.
 
 ## Features
 
@@ -35,7 +35,7 @@ Start a manual run at **Actions → Update HealthScope daily → Run workflow**.
 python scripts/update_feed.py
 ```
 
-After source collection, the workflow runs `scripts/generate_briefs.py`. It selects healthcare-relevant records, preserves previously prepared briefs, and creates conservative, clearly labeled explanations in `docs/data/briefs.json`. When evidence of a previous process or measurable improvement is unavailable, the brief says so rather than inventing an answer. The daily run processes up to 12 new records and retains up to 100 briefs.
+After source collection, the workflow runs `scripts/generate_briefs.py`. It selects healthcare-relevant records, preserves previously prepared briefs, and creates conservative, clearly labeled explanations in `docs/data/briefs.json`. When evidence of a previous process or measurable improvement is unavailable, the brief says so rather than inventing an answer. The daily run selects up to 8 new records and retains up to 100 briefs; no more than one AI analysis is attempted per run.
 
 It saves public source metadata in `docs/data/updates.json` and source status in `docs/data/status.json`. It does not scrape full news articles or store patient data. Individual source failures are recorded without discarding the existing feed.
 
@@ -53,13 +53,24 @@ If the workflow cannot commit its data, check **Settings → Actions → General
 Carefully prepared teaching cases live in docs/data/editorial_briefs.json and are retained across daily feed updates.
 
 IMPORTANT: A single WHO news item or PubMed abstract cannot substitute for a full multi-source literature review. Full texts may be inaccessible; separate reports can be needed to establish the previous workflow and demonstrated outcomes. The app labels missing evidence instead of inventing it.
-## Optional AI-enhanced briefs
+## Automatic AI explanations with Gemini (free-tier-eligible)
 
-**The app works without an AI subscription or key.** By default, new briefs are structured, source-linked learning outlines based on limited feed metadata. They explain the news at a high level, but they cannot establish previous workflows or measured improvements without supporting evidence.
+HealthScope uses the original-source research pipeline plus **Google Gemini** for optional structured explanations. The default daily provider is Gemini, with `gemini-3.1-flash-lite`. Google lists a free tier for this model, but availability, quotas and whether your project is billed must be confirmed in Google AI Studio.
 
-For more detailed AI-assisted explanations, create a paid OpenAI API key and add it as a GitHub Actions **repository secret** named `OPENAI_API_KEY`. Do not place the key in browser code or commit it to GitHub. The workflow defaults to model `gpt-4.1-mini` and limits processing to 3 newly selected briefs per daily run. API usage is billed separately by the provider; monitor usage and set a budget. A source excerpt may be sent to the API, but never identifiable patient data.
+- Create a private repository secret named `GEMINI_API_KEY` under **Settings → Secrets and variables → Actions**.
+- The daily workflow uses `HEALTHSCOPE_AI_PROVIDER=gemini`, model `gemini-3.1-flash-lite`, and a safety cap of **one** attempted AI explanation per run.
+- The initial integration can revisit an existing research note without waiting for a new article.
+- Open `docs/data/brief_status.json` after running the workflow. Verify `ai_enabled: true`, `ai_provider: "gemini"`, and `ai_enriched > 0` for a successful enriched brief.
+- A 403, 404 or 429 error is recorded as a sanitized status, without publishing your API key or raw API response.
+- If no usable original source text is available, HealthScope retains conservative reading notes rather than fabricating improvements.
 
-**Important:** AI-enhanced briefs are *unreviewed educational summaries*, not independently validated healthcare evidence. They must contain a short quote that matches the retrieved source text exactly, or the app retains a conservative reading note. The source record may not contain enough facts to make a meaningful before-versus-after comparison, and the app will acknowledge that limitation. Review original sources before citing or making decisions. The generation status is saved in `docs/data/brief_status.json` after the run.
+The earlier OpenAI provider is still available in code but is **not** used automatically. Switching providers requires explicitly editing the workflow's `HEALTHSCOPE_AI_PROVIDER`. Do not assume that a ChatGPT subscription covers API calls.
+
+### Evidence and privacy limits
+
+AI is given **public** source excerpts from WHO, PubMed or ClinicalTrials.gov; do not feed it private patient data. Free-tier Gemini prompts and outputs may be used by Google to improve its products. An AI-produced explanation is published only when a short original-source quotation matches the retrieved text, but matching a quotation alone does not verify every interpretation. Read the full source before treating research outcomes or healthcare improvements as established.
+
+No provider is guaranteed to remain free, and free-tier quotas can change. Check [Google AI Studio rates and usage](https://aistudio.google.com/rate-limit). This design does not automatically fall back to a paid provider if Gemini fails.
 
 ## Optional daily email
 
