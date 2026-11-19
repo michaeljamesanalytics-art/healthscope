@@ -179,7 +179,7 @@ def main():
     DATA.mkdir(parents=True, exist_ok=True)
     old = load(UPDATES, [])
     old_urls = {r.get("url") for r in old}
-    combined = {r["url"]: r for r in old if r.get("url") and recent(r) and r.get("source_type") != "Research portal"}
+    combined = {r["url"]: r for r in old if r.get("url") and recent(r) and r.get("source_type") != "Research portal" and not str(r.get("title","")).startswith("Explore ") and not (r.get("source_type") == "Clinical trial registry" and "/study/NCT" not in r["url"])}
     states, collected, ok = {}, [], 0
     for name, fn in (("WHO", who_feed), ("PubMed", pubmed_feed), ("ClinicalTrials.gov", clinical_trials)):
         try:
