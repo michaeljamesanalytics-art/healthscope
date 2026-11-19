@@ -315,7 +315,7 @@ def main():
         if str(existing.get("mode","")).startswith("Editorially"):
             return False
         if has_key and str(existing.get("mode","")).startswith("Research reading notes"):
-            if force_retry: return True
+            if force_retry or existing.get("ai_last_attempt_provider") != provider: return True
             # Retry old metadata-only notes when the API is first enabled.
             # An unsuccessful API attempt is cooled down for seven days.
             last=str(existing.get("ai_last_attempt_at",""))
@@ -336,11 +336,13 @@ def main():
         if has_key and ai_attempts<MAX_AI and packet.get("source_level")=="Primary source excerpt" and len(packet.get("text",""))>=600:
             ai_attempts+=1
             brief["ai_last_attempt_at"]=NOW
+            brief["ai_last_attempt_provider"]=provider
             try:
                 enriched=ai_brief(r,brief,packet)
                 if enriched and "AI-assisted" in enriched.get("mode",""):
                     brief=enriched
                     brief["ai_last_attempt_at"]=NOW
+                    brief["ai_last_attempt_provider"]=provider
                     ai_count+=1
                     statuses.append({"url":r["url"],"status":"ai_enriched","provider":provider,"source_depth":packet.get("source_level")})
                 else:
