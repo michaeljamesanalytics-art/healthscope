@@ -64,8 +64,20 @@ def dateclean(value):
     except (ValueError, TypeError, OverflowError):
         return ""
 
+def canonical_date(record):
+    """Trust YYYY from WHO's dated article URL over an inconsistent RSS timestamp."""
+    url = str(record.get("url", ""))
+    match = re.search(r"/news/item/(\d{2})-(\d{2})-(\d{4})(?:-|/|$)", url)
+    if match:
+        day, month, year = map(int, match.groups())
+        try:
+            return datetime(year, month, day, tzinfo=timezone.utc).date().isoformat()
+        except ValueError:
+            return ""
+    return dateclean(record.get("published"))
+
 def recent(record, days=180):
-    date = dateclean(record.get("published"))
+    date = canonical_date(record)
     if not date:
         return False
     age = datetime.now(timezone.utc).date() - datetime.fromisoformat(date).date()
@@ -80,7 +92,7 @@ def metadata(title, url, source, kind, date, description):
     return {
         "id": hashlib.sha256(url.encode()).hexdigest()[:20], "title": textclean(title, 220),
         "url": url, "source": source, "source_type": kind,
-        "published": dateclean(date), "category": cat, "region": region,
+        "published": canonical_date({"url":url,"published":date}), "category": cat, "region": region,
         "summary": textclean(description) or "Review the original source for details, context and limitations."
     }
 
