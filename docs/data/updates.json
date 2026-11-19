@@ -1,16 +1,5 @@
 [
   {
-    "id": "trials",
-    "title": "Explore registered digital health clinical trials",
-    "source": "ClinicalTrials.gov",
-    "source_type": "Clinical trial registry",
-    "published": "2026-11-19",
-    "url": "https://clinicaltrials.gov/search?term=digital%20health",
-    "category": "Clinical trials",
-    "region": "Global / unspecified",
-    "summary": "Trial registration describes intended research. It does not prove safety or effectiveness."
-  },
-  {
     "id": "a4ed2c2e25d2dd04bac8",
     "title": "Effects of a Digital Game-Based Educational Intervention on Midwifery Students' Perceptions of Respectful Maternity Care and Empathy",
     "url": "https://clinicaltrials.gov/study/NCT07936539",
