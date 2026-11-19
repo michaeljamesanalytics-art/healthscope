@@ -58,25 +58,66 @@ function overview(){let newItems=[...state.items].sort((a,b)=>String(b.published
 function updates(){let categories=["All topics",...new Set(state.items.map(r=>r.category||"Other"))];let regions=["All regions",...new Set(state.items.map(r=>r.region||"Unspecified"))];const sel=(options,value,id)=>'<select id="'+id+'">'+options.map(x=>'<option '+(x===value?"selected":"")+'>'+esc(x)+'</option>').join("")+'</select>';let items=state.items.filter(r=>(state.category==="All topics"||r.category===state.category)&&(state.region==="All regions"||r.region===state.region)&&[r.title,r.summary,r.source].join(" ").toLowerCase().includes(state.query.toLowerCase())).sort((a,b)=>String(b.published||"").localeCompare(a.published||""));return header("Global intelligence","Explore healthcare developments","Trace every item back to an original publication. The number of records depends on source availability, not the number of events worldwide.")+'<div class="filters"><input id="searchNews" placeholder="Search technology, country, research…" value="'+esc(state.query)+'">'+sel(categories,state.category,"category")+sel(regions,state.region,"region")+'</div><p class="small">'+items.length+' matching source records</p><div class="cards">'+(items.map(article).join("")||'<div class="card">No matching items. Try another filter.</div>')+'</div>'}
 
 function briefView(){
-if(!state.activeBrief){
-let items=state.briefs.filter(b=>[b.title,b.source,b.what_happened].join(" ").toLowerCase().includes(state.briefQuery.toLowerCase()));
-return header("Explain · Evaluate · Apply","Healthcare intelligence briefs","Read what happened, what changed, the quality of evidence and what you can learn as a healthcare BI analyst.")
-+'<div class="alert"><strong>Evidence-aware:</strong> A new announcement does not automatically establish an improvement. Missing historical information or outcomes are identified as unknown.</div>'
-+'<div class="filters"><input id="searchBriefs" placeholder="Search healthcare explainers…" value="'+esc(state.briefQuery)+'"></div><p class="small">'+items.length+' briefs available</p><div class="cards two">'
-+(items.map(b=>'<article class="card"><span class="pill">'+esc(b.evidence_type||"Source briefing")+'</span><h3>'+esc(b.title)+'</h3><p class="small">'+esc(b.source||"Source")+' · '+esc(b.published||"Date unknown")+'</p><p>'+esc((b.what_happened||"").slice(0,275))+'</p><div class="before"><strong>EVIDENCE STATUS</strong><p>'+esc(b.evidence_status||"Not established")+'</p></div><button class="primary" data-open-brief="'+esc(b.id)+'">Read structured explanation →</button></article>').join("")||'<div class="card">No matching briefs. Try another search or check after a source refresh.</div>')+'</div>';
+  const cleanList=(items)=>Array.isArray(items)?items:[];
+  if(!state.activeBrief){
+    const items=state.briefs.filter(b=>[b.title,b.source,b.what_happened].join(" ").toLowerCase().includes(state.briefQuery.toLowerCase()));
+    return header("Evidence · Systems · Analytics","Healthcare intelligence briefs","Go beyond headlines: trace original research, understand healthcare workflows, evaluate claims, and build analytical skills.")
+      +'<div class="alert"><strong>Learning principle:</strong> An announcement is not proof of improved healthcare. Missing previous-process or outcome evidence is shown explicitly.</div>'
+      +'<div class="filters"><input id="searchBriefs" placeholder="Search topics, research or countries…" value="'+esc(state.briefQuery)+'"></div><p class="small">'+items.length+' source-linked research notes</p>'
+      +'<div class="cards two">'+(items.map(b=>'<article class="card"><span class="pill">'+esc(b.evidence_type||"Source briefing")+'</span>'
+       +'<h3>'+esc(b.title)+'</h3><p class="small">'+esc(b.source||"Original source")+' · '+esc(b.published||"Date not available")+'</p>'
+       +'<p>'+esc((b.what_happened||"").slice(0,250))+'</p>'
+       +'<div class="before"><strong>WHAT IS ESTABLISHED?</strong><p>'+esc(b.evidence_status||"Not verified")+'</p>'
+       +'<p class="small">Research depth: '+esc(b.research_depth||"Source reference only")+'</p></div>'
+       +'<button class="primary" data-open-brief="'+esc(b.id)+'">Study this development →</button></article>').join("")
+       ||'<div class="card">No matching source notes. Check back after the daily research run.</div>')+'</div>';
+  }
+  const b=state.briefs.find(item=>item.id===state.activeBrief);
+  if(!b) return '<div class="card">This research note is unavailable.</div>';
+  const section=(title,body)=>'<div class="before"><strong>'+esc(title)+'</strong><p>'+esc(body||"Not established in the source reviewed.")+'</p></div>';
+  const sources=cleanList(b.source_documents);
+  const quotes=cleanList(b.support_quotes);
+  const exercise=b.analyst_exercise||{};
+  const fields=[
+    ["Business question",exercise.business_question],
+    ["Data model to build",exercise.dataset_design],
+    ["What to check before trusting the data",exercise.data_quality_check],
+    ["Your Power BI deliverable",exercise.power_bi_deliverable],
+    ["SQL practice",exercise.sql_practice]
+  ];
+  return '<button class="ghost" data-close-brief>← All intelligence briefs</button>'
+    +header("Research dossier",esc(b.title),esc(b.source||"Primary source")+" · "+esc(b.published||"Date unavailable"))
+    +'<article class="card"><span class="pill">'+esc(b.mode||"Research note")+'</span>'
+    +'<p class="small"><strong>Evidence type:</strong> '+esc(b.evidence_type||"Unspecified")+'<br><strong>Research depth:</strong> '+esc(b.research_depth||"Source cited, review incomplete")+'<br><strong>Evidence boundary:</strong> '+esc(b.evidence_status||"Impact not independently verified")+'</p>'
+    +section("01 · What happened?",b.what_happened)
+    +section("02 · How did the system work before?",b.before)
+    +section("03 · What exactly changed?",b.what_changed)
+    +section("04 · What is the evidence of improvement?",b.evidence)
+    +section("05 · What remains unknown or uncertain?",b.limitations)
+    +'<div class="before"><strong>06 · Professional vocabulary</strong>'
+    +cleanList(b.vocabulary).map(v=>'<p><b>'+esc(v.term)+'</b> — '+esc(v.meaning)+'</p>').join("")+'</div>'
+    +section("07 · Healthcare BI perspective",b.bi_lessons)
+    +'<div class="before"><strong>Metrics to investigate (suggestions, not reported outcomes)</strong><ul>'
+    +cleanList(b.metrics).map(m=>'<li>'+esc(m)+'</li>').join("")+'</ul></div>'
+    +'<div class="before"><strong>08 · Apply what you learned: analyst fieldwork</strong>'
+    +(fields.some(p=>p[1])?fields.map(p=>p[1]?'<p><b>'+esc(p[0])+':</b> '+esc(p[1])+'</p>':'').join(""):'<p>Choose a matching population, measure a KPI and check data quality.</p>')
+    +'</div>'
+    +section("09 · Research question",b.question)
+    +'<div class="before"><strong>10 · Primary-source trail</strong><p class="small">Links show the original publications checked or referenced. They are not blanket endorsements of every interpretation.</p>'
+    +(sources.length?sources.map(doc=>'<p><b>'+esc(doc.title||"Original source")+'</b><br><span class="small">'
+      +esc(doc.method||"Source reference")+' · '+esc(doc.source_level||"Depth unknown")+' · '+esc(doc.retrieved_at||"Date not recorded")+'</span><br>'
+      +link(doc.url,"Inspect original publication")+'</p>').join(""):'<p>'+link(b.source_url,"Inspect original publication")+'</p>')
+    +'</div>'
+    +(quotes.length?'<div class="before"><strong>Exact evidence excerpts checked against source text</strong>'
+      +quotes.map(q=>'<p><span class="small">'+esc(q.section||"Quoted source")+'</span><br><em>“'+esc(q.quote)+'”</em></p>').join("")+'</div>'
+      :'<div class="alert" style="font-size:13px">No automatically verified excerpt is attached. Do not treat this note as a reviewed evaluation of impact.</div>')
+    +'<div class="before"><strong>Reader checklist</strong><ul>'
+    +(cleanList(b.reading_tasks).length?cleanList(b.reading_tasks).map(x=>'<li>'+esc(x)+'</li>').join(""):'<li>Read the original research and examine its methods and outcomes.</li>')
+    +'</ul></div>'
+    +'<div class="alert">'+esc(b.review_note||"Read the original source before citing claims.")+'</div>'
+    +'<div class="actions">'+link(b.source_url,"Original publication")+'<button class="ghost" data-close-brief>← Back to briefs</button></div></article>';
 }
-let b=state.briefs.find(x=>x.id===state.activeBrief);if(!b)return '<div class="card">Brief not available. Choose a different article.</div>';
-const s=(title,body)=>'<div class="before"><strong>'+esc(title)+'</strong><p>'+esc(body||"Not established by the available source.")+'</p></div>';
-return '<button class="ghost" data-close-brief>← Back to briefs</button>'
-+header("Healthcare intelligence brief",esc(b.title),esc(b.source||"Original source")+" · "+esc(b.published||"Date unavailable"))
-+'<article class="card"><span class="pill">'+esc(b.mode||"Source-based outline")+'</span><p class="small">Source type: '+esc(b.evidence_type||"Unspecified")+' | Evidence: '+esc(b.evidence_status||"Not yet established")+'</p>'
-+s("01 · What happened?",b.what_happened)+s("02 · How did things work before?",b.before)+s("03 · What changed?",b.what_changed)+s("04 · Evidence of improvement",b.evidence)+s("05 · Evidence gaps and limitations",b.limitations)
-+'<div class="before"><strong>06 · Healthcare vocabulary</strong>'+(Array.isArray(b.vocabulary)?b.vocabulary.map(v=>'<p><b>'+esc(v.term)+'</b> — '+esc(v.meaning)+'</p>').join(""):"")+'</div>'
-+s("07 · What a healthcare data analyst should learn",b.bi_lessons)
-+'<div class="before"><strong>Metrics you could analyze (suggestions, not reported results)</strong><ul>'+(Array.isArray(b.metrics)?b.metrics.map(m=>'<li>'+esc(m)+'</li>').join(""):"")+'</ul></div>'
-+s("Investigation question",b.question)
-+'<div class="alert">'+esc(b.review_note||"Verify original evidence before citing this analysis.")+'</div><div class="actions">'+link(b.source_url,"Read original source")+'<button class="ghost" data-close-brief>← All briefs</button></div></article>';
-}
+
 function dictionary(){let cats=["All topics",...new Set(terms.map(x=>x[3]))];let filtered=terms.filter(x=>(state.group==="All topics"||x[3]===state.group)&&x.join(" ").toLowerCase().includes(state.dict.toLowerCase()));return header("Build the language","Healthcare dictionary","Learn the vocabulary behind healthcare systems, epidemiology, research and BI development.")+'<div class="filters"><input id="searchDict" placeholder="Find a term, such as FHIR or denominator…" value="'+esc(state.dict)+'"><select id="dictGroup">'+cats.map(c=>'<option '+(c===state.group?"selected":"")+'>'+esc(c)+'</option>').join("")+'</select></div><p class="small">'+filtered.length+' terms</p><div class="cards">'+filtered.map(t=>'<article class="card"><span class="pill">'+esc(t[3])+'</span><h3>'+esc(t[0])+'</h3><p>'+esc(t[1])+'</p><div class="alert" style="font-size:13px"><strong>Example:</strong> '+esc(t[2])+'</div></article>').join("")+'</div><section class="section"><div class="card quiz" id="quiz"><h2>Quick knowledge check</h2><p>What is the denominator in a vaccination coverage calculation?</p><button data-answer="0">The number of vaccines ordered</button><button data-answer="1">The eligible population for the same dose and period</button><button data-answer="2">The number of clinics</button><p id="quizResponse" class="small"></p></div></section>'}
 function countryView(){return header("Healthcare transformations","Before and after","Four specific case studies. A new system or provider claim is not automatically proof of improved health outcomes.")+'<div class="casegrid">'+countries.map(c=>'<article class="card"><span class="eyebrow">'+esc(c.theme)+'</span><h2>'+esc(c.country)+'</h2><div class="before"><strong>BEFORE — THE PROBLEM</strong><p>'+esc(c.old)+'</p></div><div class="before"><strong>NOW — THE INTERVENTION</strong><p>'+esc(c.now)+'</p></div><div class="before"><strong>DOCUMENTED EVIDENCE & LIMITATIONS</strong><p>'+esc(c.evidence)+'</p></div><div class="before"><strong>YOUR BI METRICS</strong><p>'+esc(c.metric)+'</p></div>'+link(c.url,"Explore organization / source")+'</article>').join("")+'</div><div class="alert"><strong>Research discipline:</strong> Verify specific claims in primary implementation documents. The linked organization pages are starting points, not necessarily the documents establishing every claim.</div>'}
 const months=["May","Jun","Jul","Aug","Sep","Oct"],facilities=["North Clinic","Central Clinic","River Clinic"];
