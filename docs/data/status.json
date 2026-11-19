@@ -1,7 +1,20 @@
 {
-  "mode": "Starter references",
-  "last_successful_refresh": null,
-  "last_attempted_refresh": null,
-  "sources": {},
-  "note": "Live data ingestion begins when the GitHub Actions workflow is run."
+  "mode": "Automated source metadata",
+  "last_attempted_refresh": "2026-11-19T11:06:27+00:00",
+  "last_successful_refresh": "2026-11-19T11:06:27+00:00",
+  "sources": {
+    "WHO": {
+      "status": "ok",
+      "count": 35
+    },
+    "PubMed": {
+      "status": "ok",
+      "count": 18
+    },
+    "ClinicalTrials.gov": {
+      "status": "ok",
+      "count": 18
+    }
+  },
+  "note": "Source availability and scheduled run times are not guaranteed."
 }
