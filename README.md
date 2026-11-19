@@ -11,6 +11,8 @@ A source-linked healthcare learning application built for a developing healthcar
 - Specific before/after country examples: Rwanda, Kenya, Bauchi State in Nigeria and South Africa
 - Synthetic clinic analytics lab, KPI comparison and CSV export
 - Four-week learning roadmap with progress stored locally in the browser
+- Evidence-aware **Intelligence Briefs**: what happened, previous process, what changed, documented impact, unknowns, vocabulary and analyst KPIs
+- Daily automatic brief outlines from source metadata, with an optional AI-assisted explanation mode
 - Saved readings stored locally in the browser
 - Automated metadata intake from WHO RSS, PubMed E-utilities and ClinicalTrials.gov
 
@@ -33,9 +35,19 @@ Start a manual run at **Actions → Update HealthScope daily → Run workflow**.
 python scripts/update_feed.py
 ```
 
+After source collection, the workflow runs `scripts/generate_briefs.py`. It selects healthcare-relevant records, preserves previously prepared briefs, and creates conservative, clearly labeled explanations in `docs/data/briefs.json`. When evidence of a previous process or measurable improvement is unavailable, the brief says so rather than inventing an answer. The daily run processes up to 12 new records and retains up to 100 briefs.
+
 It saves public source metadata in `docs/data/updates.json` and source status in `docs/data/status.json`. It does not scrape full news articles or store patient data. Individual source failures are recorded without discarding the existing feed.
 
 If the workflow cannot commit its data, check **Settings → Actions → General → Workflow permissions** to ensure the GitHub Actions token can write repository contents.
+
+## Optional AI-enhanced briefs
+
+**The app works without an AI subscription or key.** By default, new briefs are structured, source-linked learning outlines based on limited feed metadata. They explain the news at a high level, but they cannot establish previous workflows or measured improvements without supporting evidence.
+
+For more detailed AI-assisted explanations, create a paid OpenAI API key and add it as a GitHub Actions **repository secret** named `OPENAI_API_KEY`. Do not place the key in browser code or commit it to GitHub. The workflow defaults to model `gpt-4.1-mini` and limits processing to 5 newly selected briefs per daily run. API usage is billed separately by the provider; monitor usage and set a budget. A source excerpt may be sent to the API, but never identifiable patient data.
+
+**Important:** AI-enhanced briefs are *unreviewed educational summaries*, not independently validated healthcare evidence. The source record may not contain enough facts to make a meaningful before-versus-after comparison, and the app will acknowledge that limitation. Review original sources before citing or making decisions. The generation status is saved in `docs/data/brief_status.json` after the run.
 
 ## Optional daily email
 
@@ -77,7 +89,10 @@ docs/
   data/
     updates.json
     status.json
+    briefs.json
+    brief_status.json (created after first briefing run)
 scripts/
+  generate_briefs.py
   update_feed.py
 .github/workflows/
   daily-healthscope.yml
