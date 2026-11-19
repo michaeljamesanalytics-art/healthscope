@@ -48,7 +48,7 @@ def dateclean(value):
     if not value:
         return ""
     s = str(value).strip()
-    match = re.search(r"(\\d{4})[-/](\\d{1,2})[-/](\\d{1,2})", s)
+    match = re.search(r"(\d{4})[-/](\d{1,2})[-/](\d{1,2})", s)
     if match:
         try:
             return datetime(int(match.group(1)), int(match.group(2)), int(match.group(3)), tzinfo=timezone.utc).date().isoformat()
