@@ -1,82 +1,131 @@
 [
   {
-    "id": "who-africa-his",
-    "title": "What WHO's Africa health-information report actually tells us",
+    "id": "7aa2c08acf890d5cc4c5",
+    "title": "Explore registered digital health clinical trials",
+    "source_title": "Explore registered digital health clinical trials",
+    "source": "ClinicalTrials.gov",
+    "published": "2026-11-19",
+    "source_url": "https://clinicaltrials.gov/search?term=digital%20health",
+    "evidence_type": "Clinical trial registry",
+    "evidence_status": "Measured improvement not established by the automated source review",
+    "mode": "Research reading notes — not a verified impact study",
+    "generated_at": "2026-11-19",
+    "what_happened": "ClinicalTrials.gov listed “Explore registered digital health clinical trials.” Trial registration describes intended research. It does not prove safety or effectiveness.",
+    "before": "The available source metadata does not establish the exact prior workflow. To make a valid before-and-after comparison, review the publication and identify the setting, actors, existing processes and baseline metrics.",
+    "what_changed": "The record describes a registered or updated clinical study. Registration alone does not mean participants were treated or results were demonstrated.",
+    "evidence": "A trial registration does not demonstrate improved healthcare outcomes. Check whether results are posted and assess the study design.",
+    "limitations": "No independent causal evaluation has been performed for this auto-generated briefing. Do not infer effectiveness, national scale-up or improvements in mortality from announcements, metadata or registrations.",
+    "vocabulary": [
+      {
+        "term": "Study registration",
+        "meaning": "A public record describing a study protocol and status; not evidence that an intervention works."
+      },
+      {
+        "term": "Primary outcome",
+        "meaning": "The prespecified measure a study is mainly designed to assess."
+      },
+      {
+        "term": "Study population",
+        "meaning": "The participants eligible for inclusion under the protocol."
+      }
+    ],
+    "metrics": [
+      "Primary outcome measure and prespecified time point",
+      "Enrollment versus target enrollment",
+      "Withdrawals and missing outcome data"
+    ],
+    "bi_lessons": "Define the unit of analysis, baseline and denominator before interpreting this development. Propose KPIs relevant to the intervention and verify whether observed changes can be attributed to it.",
+    "question": "What primary-source evidence would allow us to distinguish a promising announcement from a measurable improvement in healthcare delivery?",
+    "research_depth": "Metadata only",
+    "source_documents": [
+      {
+        "title": "Explore registered digital health clinical trials",
+        "url": "https://clinicaltrials.gov/search?term=digital%20health",
+        "type": "",
+        "method": "Original record unavailable",
+        "retrieved_at": "2026-11-19T11:38:38+00:00",
+        "source_level": "Metadata only",
+        "reason": "Insufficient source text"
+      }
+    ],
+    "support_quotes": [],
+    "analyst_exercise": {
+      "business_question": "What does the registered study plan to measure, and are results actually available?",
+      "dataset_design": "Synthetic dim_study, fact_enrollment, dim_outcome and fact_measurement; separate planned versus observed values.",
+      "data_quality_check": "Verify study status, enrollment, outcome definitions, missing follow-up and version dates.",
+      "power_bi_deliverable": "Show recruitment and follow-up dashboards; do not present a registered endpoint as a measured improvement.",
+      "sql_practice": "JOIN study and outcome tables and filter for outcomes with actual reported results."
+    },
+    "reading_tasks": [
+      "Open the primary source. Identify its authors or issuing organization, date and intended audience.",
+      "Find the baseline workflow and the actual intervention; do not assume either is described.",
+      "Separate measured outcomes from projected benefits, then identify possible confounders."
+    ],
+    "review_note": "A primary record may have been retrieved, but this automatic reading note does not claim independent impact validation. Read the source before citing conclusions."
+  },
+  {
+    "id": "da8e70e513d7c839e7e7",
+    "title": "New WHO report reveals critical gaps in Africa's health information systems",
     "source_title": "New WHO report reveals critical gaps in Africa's health information systems",
     "source": "WHO Regional Office for Africa",
     "published": "2026-11-10",
     "source_url": "https://www.afro.who.int/news/new-who-report-reveals-critical-gaps-africas-health-information-systems",
-    "evidence_type": "Official WHO assessment announcement",
-    "evidence_status": "Descriptive assessment; not intervention impact",
-    "mode": "Editorially prepared example",
+    "evidence_type": "Official announcement",
+    "evidence_status": "Measured improvement not established by the automated source review",
+    "mode": "Research reading notes — not a verified impact study",
     "generated_at": "2026-11-19",
-    "what_happened": "WHO reported findings from an assessment of health information systems in 40 African countries. The findings describe uneven system maturity and important facility-level gaps in data analysis and quality assessment.",
-    "before": "The assessment describes existing weaknesses, including inadequate capacity in many countries to analyze facility data and systematically check its quality. It does not establish a single historical process shared by all 40 countries.",
-    "what_changed": "What is new here is the published regional assessment and clearer evidence about where capacity gaps exist. The report does not itself demonstrate that a new technology has improved health outcomes.",
-    "evidence": "Among 40 assessed countries, about 43% reported sufficient facility-level health-data analysis capacity and 25% reported sufficient capacity to assess data quality. These measure different capabilities; the percentage of hospitals with each capability cannot be inferred.",
-    "limitations": "The statistics describe reported capabilities at country level and cannot show which specific countries have both capacities, whether individual decisions are wrong, or whether any particular app improves patient outcomes.",
-    "vocabulary": [
-      {
-        "term": "Health information system (HIS)",
-        "meaning": "The people, processes and technologies used to collect, manage, analyze and use health information."
-      },
-      {
-        "term": "Data quality assessment",
-        "meaning": "Checking whether data is sufficiently accurate, complete, consistent and timely for a particular decision."
-      },
-      {
-        "term": "Facility-level capacity",
-        "meaning": "The ability of healthcare facilities and their teams to perform a task such as analysis or verification."
-      }
-    ],
-    "bi_lessons": "Design a health-information quality dashboard before drawing conclusions from the data. Define the unit of analysis: country, facility, report, or patient. Distinguish the ability to produce an analysis from the reliability of its underlying records.",
-    "metrics": [
-      "Timely report submission rate = reports received on time ÷ reports expected",
-      "Completeness rate = required fields populated ÷ required fields expected",
-      "Duplicate record rate = suspected duplicate records ÷ total records"
-    ],
-    "question": "If a country can analyze healthcare data but cannot adequately verify its quality, which additional checks are needed before managers use the results to allocate resources?",
-    "source_excerpt": "WHO regional health information systems assessment; 40 countries. Refer to the linked WHO announcement and underlying report for the exact definitions.",
-    "review_note": "Carefully summarized example anchored to a WHO source; the listed metrics are analyst suggestions, not reported WHO outcomes."
-  },
-  {
-    "id": "79dcbca453368d4be732",
-    "title": "Explore recently indexed digital health and health informatics research",
-    "source_title": "Explore recently indexed digital health and health informatics research",
-    "source": "PubMed",
-    "published": "2026-11-19",
-    "source_url": "https://pubmed.ncbi.nlm.nih.gov/?term=health+informatics",
-    "evidence_type": "Research portal",
-    "evidence_status": "Evidence of improvement not established from feed metadata",
-    "mode": "Automatic source-based outline (not a verified impact study)",
-    "generated_at": "2026-11-19",
-    "what_happened": "PubMed lists the following: “Explore recently indexed digital health and health informatics research.” A starting point for original peer-reviewed publications. An indexed citation alone does not validate study quality.",
+    "what_happened": "WHO Regional Office for Africa listed “New WHO report reveals critical gaps in Africa's health information systems.” A WHO assessment of health information systems in 40 African countries examines differences in capability, including facility-level data analysis and quality assessment. Read the report for context and methodology.",
     "before": "The available source metadata does not establish the exact prior workflow. To make a valid before-and-after comparison, review the publication and identify the setting, actors, existing processes and baseline metrics.",
     "what_changed": "The publication or announcement is the documented development. The source metadata alone does not establish which clinical or operational workflows have already changed.",
     "evidence": "No verified patient-level or system-level improvement can be inferred solely from this source listing. Seek independently measured before-and-after outcomes.",
     "limitations": "No independent causal evaluation has been performed for this auto-generated briefing. Do not infer effectiveness, national scale-up or improvements in mortality from announcements, metadata or registrations.",
     "vocabulary": [
       {
-        "term": "Study design",
-        "meaning": "The methodological structure determining what conclusions a study can support."
+        "term": "Interoperability",
+        "meaning": "The ability of systems to exchange information and use it meaningfully."
       },
       {
-        "term": "Confidence interval",
-        "meaning": "An interval conveying uncertainty around a statistical estimate."
+        "term": "Electronic health record (EHR)",
+        "meaning": "A digital longitudinal record of a person's health information."
       },
       {
-        "term": "Confounding",
-        "meaning": "A factor associated with exposure and outcome that can distort an association."
+        "term": "Data quality",
+        "meaning": "Whether data is suitable, accurate and complete enough for a defined use."
       }
     ],
     "metrics": [
-      "Absolute effect size and 95% confidence interval, if reported",
-      "Study sample size and selection criteria",
-      "Missing-data rate or risk of bias assessment"
+      "Interoperability adoption = connected facilities / eligible facilities",
+      "Missing-record rate = required missing fields / required fields expected",
+      "Reporting timeliness = reports delivered on time / reports expected"
     ],
     "bi_lessons": "Define the unit of analysis, baseline and denominator before interpreting this development. Propose KPIs relevant to the intervention and verify whether observed changes can be attributed to it.",
     "question": "What primary-source evidence would allow us to distinguish a promising announcement from a measurable improvement in healthcare delivery?",
-    "review_note": "Automatically generated from source metadata. Read the original publication before treating any specific claim as established."
+    "research_depth": "Metadata only",
+    "source_documents": [
+      {
+        "title": "New WHO report reveals critical gaps in Africa's health information systems",
+        "url": "https://www.afro.who.int/news/new-who-report-reveals-critical-gaps-africas-health-information-systems",
+        "type": "",
+        "method": "Unsupported host",
+        "retrieved_at": "2026-11-19T11:38:38+00:00",
+        "source_level": "Metadata only",
+        "reason": "Host is not allowlisted"
+      }
+    ],
+    "support_quotes": [],
+    "analyst_exercise": {
+      "business_question": "Which facilities experience the greatest reporting gaps or patient-record fragmentation?",
+      "dataset_design": "Create fictional dim_facility, dim_date, fact_report_submission and fact_record_quality tables.",
+      "data_quality_check": "Check duplicated facility identifiers, missing reporting periods and changing denominators.",
+      "power_bi_deliverable": "Build a facility-level scorecard of completeness, timeliness and trends, with a district filter.",
+      "sql_practice": "GROUP BY facility_id and reporting_month; compute received_reports / expected_reports with a NULLIF zero-denominator safeguard."
+    },
+    "reading_tasks": [
+      "Open the primary source. Identify its authors or issuing organization, date and intended audience.",
+      "Find the baseline workflow and the actual intervention; do not assume either is described.",
+      "Separate measured outcomes from projected benefits, then identify possible confounders."
+    ],
+    "review_note": "A primary record may have been retrieved, but this automatic reading note does not claim independent impact validation. Read the source before citing conclusions."
   },
   {
     "id": "3f409a5d27f5d39ab002",
@@ -86,10 +135,10 @@
     "published": "2026-10-10",
     "source_url": "https://www.who.int/news/item/27-08-2020-new-who-technical-package-health-data-for-covid-19-response",
     "evidence_type": "Official announcement",
-    "evidence_status": "Evidence of improvement not established from feed metadata",
-    "mode": "Automatic source-based outline (not a verified impact study)",
+    "evidence_status": "Measured improvement not established by the automated source review",
+    "mode": "Research reading notes — not a verified impact study",
     "generated_at": "2026-11-19",
-    "what_happened": "World Health Organization lists the following: “New WHO technical package to help countries improve health data for COVID-19 response and beyond.” Today, as part of its commitment to strengthening health information systems and improving health[1], especially in the context of the COVID-19 pandemic, WHO announced a new approach to improving access to life-saving data: the SCORE for Health Data Technical Package. The COVID-19 pandemic has highlighted the urgent need for timely and reliable data to drive strategic health action. Too many countries still lack both the infrastructure",
+    "what_happened": "World Health Organization published a primary-source record titled “New WHO technical package to help countries improve health data for COVID-19 response and beyond.” The original article, abstract or registry entry was retrieved for study. Today, as part of its commitment to strengthening health information systems and improving health[1], especially in the context of the COVID-19 pandemic, WHO announced a new approach to improving access to life-saving data: the SCORE for Health Data Technical Package. The COVID-19 pandemic has highlighted the urgent need for timely and reliable data to drive strategic health action. Too many countries still lack both the infrastructure",
     "before": "The available source metadata does not establish the exact prior workflow. To make a valid before-and-after comparison, review the publication and identify the setting, actors, existing processes and baseline metrics.",
     "what_changed": "The publication or announcement is the documented development. The source metadata alone does not establish which clinical or operational workflows have already changed.",
     "evidence": "No verified patient-level or system-level improvement can be inferred solely from this source listing. Seek independently measured before-and-after outcomes.",
@@ -115,371 +164,45 @@
     ],
     "bi_lessons": "Define the unit of analysis, baseline and denominator before interpreting this development. Propose KPIs relevant to the intervention and verify whether observed changes can be attributed to it.",
     "question": "What primary-source evidence would allow us to distinguish a promising announcement from a measurable improvement in healthcare delivery?",
-    "review_note": "Automatically generated from source metadata. Read the original publication before treating any specific claim as established."
-  },
-  {
-    "id": "8a2d3ec69eb2a3ee57bc",
-    "title": "172 countries and multiple candidate vaccines engaged in COVID-19 vaccine Global Access Facility",
-    "source_title": "172 countries and multiple candidate vaccines engaged in COVID-19 vaccine Global Access Facility",
-    "source": "World Health Organization",
-    "published": "2020-08-24",
-    "source_url": "https://www.who.int/news/item/24-08-2020-172-countries-and-multiple-candidate-vaccines-engaged-in-covid-19-vaccine-global-access-facility",
-    "evidence_type": "Official announcement",
-    "evidence_status": "Evidence of improvement not established from feed metadata",
-    "mode": "Automatic source-based outline (not a verified impact study)",
-    "generated_at": "2026-11-19",
-    "what_happened": "World Health Organization lists the following: “172 countries and multiple candidate vaccines engaged in COVID-19 vaccine Global Access Facility.” Nine CEPI-supported candidate vaccines are part of the COVAX initiative, with a further nine candidates under evaluation, and procurement conversations on-going with additional producers not currently receiving research and development (R&D) funding through COVAX – giving COVAX the largest and most diverse COVID-19 vaccine portfolio in the world 80 potentially self-financing countries have submitted non-binding expressions of interest t",
-    "before": "The available source metadata does not establish the exact prior workflow. To make a valid before-and-after comparison, review the publication and identify the setting, actors, existing processes and baseline metrics.",
-    "what_changed": "The publication or announcement is the documented development. The source metadata alone does not establish which clinical or operational workflows have already changed.",
-    "evidence": "No verified patient-level or system-level improvement can be inferred solely from this source listing. Seek independently measured before-and-after outcomes.",
-    "limitations": "No independent causal evaluation has been performed for this auto-generated briefing. Do not infer effectiveness, national scale-up or improvements in mortality from announcements, metadata or registrations.",
-    "vocabulary": [
+    "research_depth": "Primary source excerpt",
+    "source_documents": [
       {
-        "term": "Study design",
-        "meaning": "The methodological structure determining what conclusions a study can support."
-      },
-      {
-        "term": "Confidence interval",
-        "meaning": "An interval conveying uncertainty around a statistical estimate."
-      },
-      {
-        "term": "Confounding",
-        "meaning": "A factor associated with exposure and outcome that can distort an association."
+        "title": "New WHO technical package to help countries improve health data for COVID-19 response and beyond",
+        "url": "https://www.who.int/news/item/27-08-2020-new-who-technical-package-health-data-for-covid-19-response",
+        "type": "Institutional announcement",
+        "method": "WHO original public HTML article",
+        "retrieved_at": "2026-11-19T11:38:38+00:00",
+        "source_level": "Primary source excerpt",
+        "reason": ""
       }
     ],
-    "metrics": [
-      "Absolute effect size and 95% confidence interval, if reported",
-      "Study sample size and selection criteria",
-      "Missing-data rate or risk of bias assessment"
+    "support_quotes": [],
+    "analyst_exercise": {
+      "business_question": "Which facilities experience the greatest reporting gaps or patient-record fragmentation?",
+      "dataset_design": "Create fictional dim_facility, dim_date, fact_report_submission and fact_record_quality tables.",
+      "data_quality_check": "Check duplicated facility identifiers, missing reporting periods and changing denominators.",
+      "power_bi_deliverable": "Build a facility-level scorecard of completeness, timeliness and trends, with a district filter.",
+      "sql_practice": "GROUP BY facility_id and reporting_month; compute received_reports / expected_reports with a NULLIF zero-denominator safeguard."
+    },
+    "reading_tasks": [
+      "Open the primary source. Identify its authors or issuing organization, date and intended audience.",
+      "Find the baseline workflow and the actual intervention; do not assume either is described.",
+      "Separate measured outcomes from projected benefits, then identify possible confounders."
     ],
-    "bi_lessons": "Define the unit of analysis, baseline and denominator before interpreting this development. Propose KPIs relevant to the intervention and verify whether observed changes can be attributed to it.",
-    "question": "What primary-source evidence would allow us to distinguish a promising announcement from a measurable improvement in healthcare delivery?",
-    "review_note": "Automatically generated from source metadata. Read the original publication before treating any specific claim as established."
-  },
-  {
-    "id": "f392a8fdac34c8746d5d",
-    "title": "More than 150 countries engaged in COVID-19 vaccine global access facility",
-    "source_title": "More than 150 countries engaged in COVID-19 vaccine global access facility",
-    "source": "World Health Organization",
-    "published": "2020-07-15",
-    "source_url": "https://www.who.int/news/item/15-07-2020-more-than-150-countries-engaged-in-covid-19-vaccine-global-access-facility",
-    "evidence_type": "Official announcement",
-    "evidence_status": "Evidence of improvement not established from feed metadata",
-    "mode": "Automatic source-based outline (not a verified impact study)",
-    "generated_at": "2026-11-19",
-    "what_happened": "World Health Organization lists the following: “More than 150 countries engaged in COVID-19 vaccine global access facility.” Seventy-five countries submit expressions of interest to COVAX Facility, joining up to 90 further countries which could be supported by the COVAX Advance Market Commitment (AMC) The COVAX Facility, and the AMC within it, is designed to guarantee rapid, fair and equitable access to COVID-19 vaccines for every country in the world, rich and poor, to make rapid progress towards slowing the pandemic Interest from governments representing mo",
-    "before": "The available source metadata does not establish the exact prior workflow. To make a valid before-and-after comparison, review the publication and identify the setting, actors, existing processes and baseline metrics.",
-    "what_changed": "The publication or announcement is the documented development. The source metadata alone does not establish which clinical or operational workflows have already changed.",
-    "evidence": "No verified patient-level or system-level improvement can be inferred solely from this source listing. Seek independently measured before-and-after outcomes.",
-    "limitations": "No independent causal evaluation has been performed for this auto-generated briefing. Do not infer effectiveness, national scale-up or improvements in mortality from announcements, metadata or registrations.",
-    "vocabulary": [
-      {
-        "term": "Study design",
-        "meaning": "The methodological structure determining what conclusions a study can support."
-      },
-      {
-        "term": "Confidence interval",
-        "meaning": "An interval conveying uncertainty around a statistical estimate."
-      },
-      {
-        "term": "Confounding",
-        "meaning": "A factor associated with exposure and outcome that can distort an association."
-      }
-    ],
-    "metrics": [
-      "Absolute effect size and 95% confidence interval, if reported",
-      "Study sample size and selection criteria",
-      "Missing-data rate or risk of bias assessment"
-    ],
-    "bi_lessons": "Define the unit of analysis, baseline and denominator before interpreting this development. Propose KPIs relevant to the intervention and verify whether observed changes can be attributed to it.",
-    "question": "What primary-source evidence would allow us to distinguish a promising announcement from a measurable improvement in healthcare delivery?",
-    "review_note": "Automatically generated from source metadata. Read the original publication before treating any specific claim as established."
-  },
-  {
-    "id": "4d88b0d2c748c69aa1f0",
-    "title": "WHO and UNICEF warn of a decline in vaccinations during COVID-19",
-    "source_title": "WHO and UNICEF warn of a decline in vaccinations during COVID-19",
-    "source": "World Health Organization",
-    "published": "2020-07-15",
-    "source_url": "https://www.who.int/news/item/15-07-2020-who-and-unicef-warn-of-a-decline-in-vaccinations-during-covid-19",
-    "evidence_type": "Official announcement",
-    "evidence_status": "Evidence of improvement not established from feed metadata",
-    "mode": "Automatic source-based outline (not a verified impact study)",
-    "generated_at": "2026-11-19",
-    "what_happened": "World Health Organization lists the following: “WHO and UNICEF warn of a decline in vaccinations during COVID-19.” WHO and UNICEF call for immediate efforts to vaccinate all children as new data shows that, before the COVID-19 pandemic, vaccine coverage stalled at 85 per cent for nearly a decade, with 14 million unvaccinated infants yearly",
-    "before": "The available source metadata does not establish the exact prior workflow. To make a valid before-and-after comparison, review the publication and identify the setting, actors, existing processes and baseline metrics.",
-    "what_changed": "The publication or announcement is the documented development. The source metadata alone does not establish which clinical or operational workflows have already changed.",
-    "evidence": "No verified patient-level or system-level improvement can be inferred solely from this source listing. Seek independently measured before-and-after outcomes.",
-    "limitations": "No independent causal evaluation has been performed for this auto-generated briefing. Do not infer effectiveness, national scale-up or improvements in mortality from announcements, metadata or registrations.",
-    "vocabulary": [
-      {
-        "term": "Surveillance",
-        "meaning": "Continuous systematic collection and interpretation of health data for action."
-      },
-      {
-        "term": "Incidence",
-        "meaning": "New cases during a specified period in a defined population."
-      },
-      {
-        "term": "Denominator",
-        "meaning": "The defined population or total used to calculate a rate."
-      }
-    ],
-    "metrics": [
-      "Service coverage = reached eligible people / total eligible people",
-      "Reporting completeness = expected reports received / total reports expected",
-      "Disease case incidence per defined population and period"
-    ],
-    "bi_lessons": "Define the unit of analysis, baseline and denominator before interpreting this development. Propose KPIs relevant to the intervention and verify whether observed changes can be attributed to it.",
-    "question": "What primary-source evidence would allow us to distinguish a promising announcement from a measurable improvement in healthcare delivery?",
-    "review_note": "Automatically generated from source metadata. Read the original publication before treating any specific claim as established."
-  },
-  {
-    "id": "c2c36364fd9d7d18ffed",
-    "title": "ACT-Accelerator update",
-    "source_title": "ACT-Accelerator update",
-    "source": "World Health Organization",
-    "published": "2020-06-26",
-    "source_url": "https://www.who.int/news/item/26-06-2020-act-accelerator-update",
-    "evidence_type": "Official announcement",
-    "evidence_status": "Evidence of improvement not established from feed metadata",
-    "mode": "Automatic source-based outline (not a verified impact study)",
-    "generated_at": "2026-11-19",
-    "what_happened": "World Health Organization lists the following: “ACT-Accelerator update.” The tools developed will benefit the whole world, and by saving lives and reducing severe COVID-19 disease, contribute to the goal of protecting health systems and restoring full societal and economic activity globally in the near term, and facilitating high-level control of COVID-19 disease in the medium term. The consolidated investment case calls for US$31.3 billion over the next 12 months [1] . US$3.4 billion has been contributed to",
-    "before": "The available source metadata does not establish the exact prior workflow. To make a valid before-and-after comparison, review the publication and identify the setting, actors, existing processes and baseline metrics.",
-    "what_changed": "The publication or announcement is the documented development. The source metadata alone does not establish which clinical or operational workflows have already changed.",
-    "evidence": "No verified patient-level or system-level improvement can be inferred solely from this source listing. Seek independently measured before-and-after outcomes.",
-    "limitations": "No independent causal evaluation has been performed for this auto-generated briefing. Do not infer effectiveness, national scale-up or improvements in mortality from announcements, metadata or registrations.",
-    "vocabulary": [
-      {
-        "term": "Study design",
-        "meaning": "The methodological structure determining what conclusions a study can support."
-      },
-      {
-        "term": "Confidence interval",
-        "meaning": "An interval conveying uncertainty around a statistical estimate."
-      },
-      {
-        "term": "Confounding",
-        "meaning": "A factor associated with exposure and outcome that can distort an association."
-      }
-    ],
-    "metrics": [
-      "Absolute effect size and 95% confidence interval, if reported",
-      "Study sample size and selection criteria",
-      "Missing-data rate or risk of bias assessment"
-    ],
-    "bi_lessons": "Define the unit of analysis, baseline and denominator before interpreting this development. Propose KPIs relevant to the intervention and verify whether observed changes can be attributed to it.",
-    "question": "What primary-source evidence would allow us to distinguish a promising announcement from a measurable improvement in healthcare delivery?",
-    "review_note": "Automatically generated from source metadata. Read the original publication before treating any specific claim as established."
-  },
-  {
-    "id": "3ada14e06751e5e482be",
-    "title": "Physician digital health literacy and generative AI for public health communication: a five-country comparative case study with a MedVid-informed digital twin model for Shanghai.",
-    "source_title": "Physician digital health literacy and generative AI for public health communication: a five-country comparative case study with a MedVid-informed digital twin model for Shanghai.",
-    "source": "PubMed · Int J Med Inform",
-    "published": "",
-    "source_url": "https://pubmed.ncbi.nlm.nih.gov/42967410/",
-    "evidence_type": "Research citation",
-    "evidence_status": "Evidence of improvement not established from feed metadata",
-    "mode": "Automatic source-based outline (not a verified impact study)",
-    "generated_at": "2026-11-19",
-    "what_happened": "PubMed · Int J Med Inform lists the following: “Physician digital health literacy and generative AI for public health communication: a five-country comparative case study with a MedVid-informed digital twin model for Shanghai..” Indexed research citation. Verify study design, sample, results and limitations in the original publication.",
-    "before": "The available source metadata does not establish the exact prior workflow. To make a valid before-and-after comparison, review the publication and identify the setting, actors, existing processes and baseline metrics.",
-    "what_changed": "The source identifies a research topic; verify the actual intervention and comparison group in the full paper before describing a change.",
-    "evidence": "An indexed research citation is not enough to establish an effect. Read the methods, numerical results, and uncertainties in the primary paper.",
-    "limitations": "No independent causal evaluation has been performed for this auto-generated briefing. Do not infer effectiveness, national scale-up or improvements in mortality from announcements, metadata or registrations.",
-    "vocabulary": [
-      {
-        "term": "Interoperability",
-        "meaning": "The ability of systems to exchange information and use it meaningfully."
-      },
-      {
-        "term": "Electronic health record (EHR)",
-        "meaning": "A digital longitudinal record of a person's health information."
-      },
-      {
-        "term": "Data quality",
-        "meaning": "Whether data is suitable, accurate and complete enough for a defined use."
-      }
-    ],
-    "metrics": [
-      "Interoperability adoption = connected facilities / eligible facilities",
-      "Missing-record rate = required missing fields / required fields expected",
-      "Reporting timeliness = reports delivered on time / reports expected"
-    ],
-    "bi_lessons": "Define the unit of analysis, baseline and denominator before interpreting this development. Propose KPIs relevant to the intervention and verify whether observed changes can be attributed to it.",
-    "question": "What primary-source evidence would allow us to distinguish a promising announcement from a measurable improvement in healthcare delivery?",
-    "review_note": "Automatically generated from source metadata. Read the original publication before treating any specific claim as established."
-  },
-  {
-    "id": "3d3c36cccd5eb216f3db",
-    "title": "From digital adoption to health-system transformation: A systematic review of outcomes, implementation barriers, and conditions for scale across global health systems.",
-    "source_title": "From digital adoption to health-system transformation: A systematic review of outcomes, implementation barriers, and conditions for scale across global health systems.",
-    "source": "PubMed · Int J Med Inform",
-    "published": "",
-    "source_url": "https://pubmed.ncbi.nlm.nih.gov/42849249/",
-    "evidence_type": "Research citation",
-    "evidence_status": "Evidence of improvement not established from feed metadata",
-    "mode": "Automatic source-based outline (not a verified impact study)",
-    "generated_at": "2026-11-19",
-    "what_happened": "PubMed · Int J Med Inform lists the following: “From digital adoption to health-system transformation: A systematic review of outcomes, implementation barriers, and conditions for scale across global health systems..” Indexed research citation. Verify study design, sample, results and limitations in the original publication.",
-    "before": "The available source metadata does not establish the exact prior workflow. To make a valid before-and-after comparison, review the publication and identify the setting, actors, existing processes and baseline metrics.",
-    "what_changed": "The source identifies a research topic; verify the actual intervention and comparison group in the full paper before describing a change.",
-    "evidence": "An indexed research citation is not enough to establish an effect. Read the methods, numerical results, and uncertainties in the primary paper.",
-    "limitations": "No independent causal evaluation has been performed for this auto-generated briefing. Do not infer effectiveness, national scale-up or improvements in mortality from announcements, metadata or registrations.",
-    "vocabulary": [
-      {
-        "term": "Coverage",
-        "meaning": "The proportion of an eligible population reached by a service."
-      },
-      {
-        "term": "Health information system (HIS)",
-        "meaning": "The people, policies, workflows and technologies used to produce health information."
-      },
-      {
-        "term": "Key performance indicator (KPI)",
-        "meaning": "A measurable indicator linked to a decision or operational objective."
-      }
-    ],
-    "metrics": [
-      "Service coverage by district and patient group",
-      "Stockout rate = facilities with a stockout / facilities reporting",
-      "Median referral or reporting turnaround time"
-    ],
-    "bi_lessons": "Define the unit of analysis, baseline and denominator before interpreting this development. Propose KPIs relevant to the intervention and verify whether observed changes can be attributed to it.",
-    "question": "What primary-source evidence would allow us to distinguish a promising announcement from a measurable improvement in healthcare delivery?",
-    "review_note": "Automatically generated from source metadata. Read the original publication before treating any specific claim as established."
-  },
-  {
-    "id": "eb6955bef12c3f0aa879",
-    "title": "Bridging Asthma Care: Digital Health Tools and the Emergency Department Visit.",
-    "source_title": "Bridging Asthma Care: Digital Health Tools and the Emergency Department Visit.",
-    "source": "PubMed · Immunol Allergy Clin North Am",
-    "published": "",
-    "source_url": "https://pubmed.ncbi.nlm.nih.gov/43045425/",
-    "evidence_type": "Research citation",
-    "evidence_status": "Evidence of improvement not established from feed metadata",
-    "mode": "Automatic source-based outline (not a verified impact study)",
-    "generated_at": "2026-11-19",
-    "what_happened": "PubMed · Immunol Allergy Clin North Am lists the following: “Bridging Asthma Care: Digital Health Tools and the Emergency Department Visit..” Indexed research citation. Verify study design, sample, results and limitations in the original publication.",
-    "before": "The available source metadata does not establish the exact prior workflow. To make a valid before-and-after comparison, review the publication and identify the setting, actors, existing processes and baseline metrics.",
-    "what_changed": "The source identifies a research topic; verify the actual intervention and comparison group in the full paper before describing a change.",
-    "evidence": "An indexed research citation is not enough to establish an effect. Read the methods, numerical results, and uncertainties in the primary paper.",
-    "limitations": "No independent causal evaluation has been performed for this auto-generated briefing. Do not infer effectiveness, national scale-up or improvements in mortality from announcements, metadata or registrations.",
-    "vocabulary": [
-      {
-        "term": "Interoperability",
-        "meaning": "The ability of systems to exchange information and use it meaningfully."
-      },
-      {
-        "term": "Electronic health record (EHR)",
-        "meaning": "A digital longitudinal record of a person's health information."
-      },
-      {
-        "term": "Data quality",
-        "meaning": "Whether data is suitable, accurate and complete enough for a defined use."
-      }
-    ],
-    "metrics": [
-      "Interoperability adoption = connected facilities / eligible facilities",
-      "Missing-record rate = required missing fields / required fields expected",
-      "Reporting timeliness = reports delivered on time / reports expected"
-    ],
-    "bi_lessons": "Define the unit of analysis, baseline and denominator before interpreting this development. Propose KPIs relevant to the intervention and verify whether observed changes can be attributed to it.",
-    "question": "What primary-source evidence would allow us to distinguish a promising announcement from a measurable improvement in healthcare delivery?",
-    "review_note": "Automatically generated from source metadata. Read the original publication before treating any specific claim as established."
-  },
-  {
-    "id": "5da4679dc8313b7e6615",
-    "title": "Trends in Digital Health Literacy: Results of the Third Health Literacy Survey in Germany.",
-    "source_title": "Trends in Digital Health Literacy: Results of the Third Health Literacy Survey in Germany.",
-    "source": "PubMed · Dtsch Arztebl Int",
-    "published": "",
-    "source_url": "https://pubmed.ncbi.nlm.nih.gov/42904802/",
-    "evidence_type": "Research citation",
-    "evidence_status": "Evidence of improvement not established from feed metadata",
-    "mode": "Automatic source-based outline (not a verified impact study)",
-    "generated_at": "2026-11-19",
-    "what_happened": "PubMed · Dtsch Arztebl Int lists the following: “Trends in Digital Health Literacy: Results of the Third Health Literacy Survey in Germany..” Indexed research citation. Verify study design, sample, results and limitations in the original publication.",
-    "before": "The available source metadata does not establish the exact prior workflow. To make a valid before-and-after comparison, review the publication and identify the setting, actors, existing processes and baseline metrics.",
-    "what_changed": "The source identifies a research topic; verify the actual intervention and comparison group in the full paper before describing a change.",
-    "evidence": "An indexed research citation is not enough to establish an effect. Read the methods, numerical results, and uncertainties in the primary paper.",
-    "limitations": "No independent causal evaluation has been performed for this auto-generated briefing. Do not infer effectiveness, national scale-up or improvements in mortality from announcements, metadata or registrations.",
-    "vocabulary": [
-      {
-        "term": "Interoperability",
-        "meaning": "The ability of systems to exchange information and use it meaningfully."
-      },
-      {
-        "term": "Electronic health record (EHR)",
-        "meaning": "A digital longitudinal record of a person's health information."
-      },
-      {
-        "term": "Data quality",
-        "meaning": "Whether data is suitable, accurate and complete enough for a defined use."
-      }
-    ],
-    "metrics": [
-      "Interoperability adoption = connected facilities / eligible facilities",
-      "Missing-record rate = required missing fields / required fields expected",
-      "Reporting timeliness = reports delivered on time / reports expected"
-    ],
-    "bi_lessons": "Define the unit of analysis, baseline and denominator before interpreting this development. Propose KPIs relevant to the intervention and verify whether observed changes can be attributed to it.",
-    "question": "What primary-source evidence would allow us to distinguish a promising announcement from a measurable improvement in healthcare delivery?",
-    "review_note": "Automatically generated from source metadata. Read the original publication before treating any specific claim as established."
-  },
-  {
-    "id": "bb04a5ec6d22c97b6b3a",
-    "title": "Analyzing Electronic Health Records for Precision Medicine.",
-    "source_title": "Analyzing Electronic Health Records for Precision Medicine.",
-    "source": "PubMed · Methods Mol Biol",
-    "published": "",
-    "source_url": "https://pubmed.ncbi.nlm.nih.gov/43052646/",
-    "evidence_type": "Research citation",
-    "evidence_status": "Evidence of improvement not established from feed metadata",
-    "mode": "Automatic source-based outline (not a verified impact study)",
-    "generated_at": "2026-11-19",
-    "what_happened": "PubMed · Methods Mol Biol lists the following: “Analyzing Electronic Health Records for Precision Medicine..” Indexed research citation. Verify study design, sample, results and limitations in the original publication.",
-    "before": "The available source metadata does not establish the exact prior workflow. To make a valid before-and-after comparison, review the publication and identify the setting, actors, existing processes and baseline metrics.",
-    "what_changed": "The source identifies a research topic; verify the actual intervention and comparison group in the full paper before describing a change.",
-    "evidence": "An indexed research citation is not enough to establish an effect. Read the methods, numerical results, and uncertainties in the primary paper.",
-    "limitations": "No independent causal evaluation has been performed for this auto-generated briefing. Do not infer effectiveness, national scale-up or improvements in mortality from announcements, metadata or registrations.",
-    "vocabulary": [
-      {
-        "term": "Interoperability",
-        "meaning": "The ability of systems to exchange information and use it meaningfully."
-      },
-      {
-        "term": "Electronic health record (EHR)",
-        "meaning": "A digital longitudinal record of a person's health information."
-      },
-      {
-        "term": "Data quality",
-        "meaning": "Whether data is suitable, accurate and complete enough for a defined use."
-      }
-    ],
-    "metrics": [
-      "Interoperability adoption = connected facilities / eligible facilities",
-      "Missing-record rate = required missing fields / required fields expected",
-      "Reporting timeliness = reports delivered on time / reports expected"
-    ],
-    "bi_lessons": "Define the unit of analysis, baseline and denominator before interpreting this development. Propose KPIs relevant to the intervention and verify whether observed changes can be attributed to it.",
-    "question": "What primary-source evidence would allow us to distinguish a promising announcement from a measurable improvement in healthcare delivery?",
-    "review_note": "Automatically generated from source metadata. Read the original publication before treating any specific claim as established."
+    "review_note": "A primary record may have been retrieved, but this automatic reading note does not claim independent impact validation. Read the source before citing conclusions."
   },
   {
     "id": "8186d30f77677560e94b",
     "title": "Artificial Intelligence-Driven Digital Tools for Diabetes Self-management in Children: A Scoping Review.",
     "source_title": "Artificial Intelligence-Driven Digital Tools for Diabetes Self-management in Children: A Scoping Review.",
     "source": "PubMed · Int J Endocrinol Metab",
-    "published": "",
+    "published": "2026-08-11",
     "source_url": "https://pubmed.ncbi.nlm.nih.gov/42763696/",
     "evidence_type": "Research citation",
-    "evidence_status": "Evidence of improvement not established from feed metadata",
-    "mode": "Automatic source-based outline (not a verified impact study)",
+    "evidence_status": "Measured improvement not established by the automated source review",
+    "mode": "Research reading notes — not a verified impact study",
     "generated_at": "2026-11-19",
-    "what_happened": "PubMed · Int J Endocrinol Metab lists the following: “Artificial Intelligence-Driven Digital Tools for Diabetes Self-management in Children: A Scoping Review..” Indexed research citation. Verify study design, sample, results and limitations in the original publication.",
+    "what_happened": "PubMed · Int J Endocrinol Metab published a primary-source record titled “Artificial Intelligence-Driven Digital Tools for Diabetes Self-management in Children: A Scoping Review..” The original article, abstract or registry entry was retrieved for study. Indexed research citation. Verify study design, sample, results and limitations in the original publication.",
     "before": "The available source metadata does not establish the exact prior workflow. To make a valid before-and-after comparison, review the publication and identify the setting, actors, existing processes and baseline metrics.",
     "what_changed": "The source identifies a research topic; verify the actual intervention and comparison group in the full paper before describing a change.",
     "evidence": "An indexed research citation is not enough to establish an effect. Read the methods, numerical results, and uncertainties in the primary paper.",
@@ -505,6 +228,31 @@
     ],
     "bi_lessons": "Define the unit of analysis, baseline and denominator before interpreting this development. Propose KPIs relevant to the intervention and verify whether observed changes can be attributed to it.",
     "question": "What primary-source evidence would allow us to distinguish a promising announcement from a measurable improvement in healthcare delivery?",
-    "review_note": "Automatically generated from source metadata. Read the original publication before treating any specific claim as established."
+    "research_depth": "Primary source excerpt",
+    "source_documents": [
+      {
+        "title": "Artificial Intelligence-Driven Digital Tools for Diabetes Self-management in Children: A Scoping Review.",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42763696/",
+        "type": "Journal Article, Review",
+        "method": "PubMed abstract via NCBI EFetch",
+        "retrieved_at": "2026-11-19T11:38:38+00:00",
+        "source_level": "Primary source excerpt",
+        "reason": ""
+      }
+    ],
+    "support_quotes": [],
+    "analyst_exercise": {
+      "business_question": "Does introducing an AI triage system shorten urgent-case review time without increasing missed findings?",
+      "dataset_design": "Synthetic fact_scan with scan_time, flag_time, clinician_review_time, model_flag, confirmed_finding and site.",
+      "data_quality_check": "Check missing confirmation outcomes, timestamp order and different hospital case mixes.",
+      "power_bi_deliverable": "Build sensitivity, specificity, false-alert and median turnaround charts stratified by site.",
+      "sql_practice": "Use conditional aggregation to compute true positives, false positives, false negatives and true negatives."
+    },
+    "reading_tasks": [
+      "Open the primary source. Identify its authors or issuing organization, date and intended audience.",
+      "Find the baseline workflow and the actual intervention; do not assume either is described.",
+      "Separate measured outcomes from projected benefits, then identify possible confounders."
+    ],
+    "review_note": "A primary record may have been retrieved, but this automatic reading note does not claim independent impact validation. Read the source before citing conclusions."
   }
 ]

@@ -1,9 +1,30 @@
 {
-  "last_generated": "2026-11-19T11:19:23+00:00",
-  "available_briefs": 13,
-  "new_briefs": 12,
+  "last_generated": "2026-11-19T11:38:38+00:00",
+  "available_briefs": 4,
+  "new_briefs": 4,
   "ai_enriched": 0,
   "ai_enabled": false,
-  "items": [],
+  "items": [
+    {
+      "url": "https://www.who.int/news/item/27-08-2020-new-who-technical-package-health-data-for-covid-19-response",
+      "source_depth": "Primary source excerpt",
+      "mode": "Research reading notes \u2014 not a verified impact study"
+    },
+    {
+      "url": "https://www.afro.who.int/news/new-who-report-reveals-critical-gaps-africas-health-information-systems",
+      "source_depth": "Metadata only",
+      "mode": "Research reading notes \u2014 not a verified impact study"
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42763696/",
+      "source_depth": "Primary source excerpt",
+      "mode": "Research reading notes \u2014 not a verified impact study"
+    },
+    {
+      "url": "https://clinicaltrials.gov/search?term=digital%20health",
+      "source_depth": "Metadata only",
+      "mode": "Research reading notes \u2014 not a verified impact study"
+    }
+  ],
   "limitations": "Automatic briefs may lack full source context; AI outputs are unreviewed and must be checked."
 }
