@@ -1,0 +1,70 @@
+[
+  {
+    "id": "who-africa-his",
+    "title": "Why data analysis without data quality is a healthcare risk",
+    "source_title": "New WHO report reveals critical gaps in Africa's health information systems",
+    "source": "WHO Regional Office for Africa",
+    "published": "2026-11-10",
+    "source_url": "https://www.afro.who.int/news/new-who-report-reveals-critical-gaps-africas-health-information-systems",
+    "evidence_type": "WHO regional health information systems assessment announcement",
+    "evidence_status": "Descriptive country-level capacity findings — not evidence of intervention impact",
+    "mode": "Editorially prepared teaching case · fact and inference separated",
+    "research_depth": "A source-linked educational review; the original WHO report is cited but has not been independently re-extracted in this editorial record",
+    "generated_at": "2026-11-19",
+    "what_happened": "A WHO assessment of health information systems across 40 countries in its African Region reported uneven health information system maturity and substantial gaps in facility-level data analysis and assessment of data quality.",
+    "before": "The assessment documents existing capacity gaps. It does not describe one shared historical paper-based process for all 40 countries, nor a single intervention that has replaced that process.",
+    "what_changed": "The new development is the publication of a regional assessment highlighting where health information systems need strengthening. Publication of the report itself does not demonstrate that patient care or health outcomes have already improved.",
+    "evidence": "About 43% of assessed countries reported adequate facility-level capability to analyze data, while 25% reported sufficient capability to assess its quality. The two percentages measure different abilities and do not establish precisely how many countries possess both. An inability to verify data quality is a risk to decision-making, not proof that every decision is incorrect.",
+    "limitations": "These statistics do not describe the percentage of individual facilities capable of each task. We cannot calculate the overlap of the two groups or infer that 43% of healthcare decisions are unreliable. Independent country-level methods and implementation results are needed before attributing improvements to specific technologies.",
+    "vocabulary": [
+      {
+        "term": "Data analysis capacity",
+        "meaning": "The people, tools and processes needed to interpret data and identify meaningful patterns."
+      },
+      {
+        "term": "Data quality assessment",
+        "meaning": "Checks that establish whether recorded information is complete, accurate, consistent and useful for a particular decision."
+      },
+      {
+        "term": "Unit of analysis",
+        "meaning": "The entity represented by each record, such as a country, hospital, patient or report."
+      },
+      {
+        "term": "Denominator",
+        "meaning": "The total eligible or assessed population used to calculate a proportion."
+      }
+    ],
+    "metrics": [
+      "Facility report completeness: expected monthly submissions received ÷ expected submissions",
+      "On-time reporting: submissions received before deadline ÷ expected submissions",
+      "Duplicate patient records: probable duplicate records ÷ total patient records"
+    ],
+    "bi_lessons": "Always identify the unit of analysis before building a chart. The WHO percentages describe countries' reported facility-level capacity, not 43% of patients or individual hospitals. Separate data-analysis capability from confidence in data quality and do not infer their overlap without country-level observations.",
+    "question": "How would you design a reporting-quality scorecard that prevents a ministry from trusting a compelling dashboard built from incomplete or duplicated records?",
+    "analyst_exercise": {
+      "business_question": "Which reporting and quality-assessment gaps should be prioritized across a fictional network of facilities?",
+      "dataset_design": "Create synthetic dim_country, dim_facility, dim_month and fact_report_quality tables with expected_reports, received_reports, late_reports and duplicate_records.",
+      "data_quality_check": "Check missing facilities, duplicates, denominator consistency, reporting periods and sample coverage.",
+      "power_bi_deliverable": "Build a facility-quality dashboard with completeness, timeliness, duplicate rate and clearly displayed data-quality warnings.",
+      "sql_practice": "GROUP BY facility_id and reporting_month. Calculate reporting completeness using received_reports / NULLIF(expected_reports,0), without treating missing facilities as zero errors."
+    },
+    "source_documents": [
+      {
+        "title": "WHO assessment announcement — Africa HIS functionality",
+        "url": "https://www.afro.who.int/news/new-who-report-reveals-critical-gaps-africas-health-information-systems",
+        "type": "Official institutional publication",
+        "method": "Original publication referenced for a prepared learning case",
+        "source_level": "Source-linked editorial review",
+        "retrieved_at": "Not recorded"
+      }
+    ],
+    "support_quotes": [],
+    "reading_tasks": [
+      "Identify the difference between a country-level measure and a facility-level measure.",
+      "Find the report's exact definition of sufficient capacity for data analysis and data-quality assessment.",
+      "Check the assessed-country coverage and potential missing-country bias.",
+      "Determine which additional data would be needed to calculate how many countries have both capacities."
+    ],
+    "review_note": "Prepared from the cited WHO regional assessment findings. The numerical claims are assessment findings; the BI metrics and exercises are suggestions, not documented WHO interventions or measured outcomes."
+  }
+]
