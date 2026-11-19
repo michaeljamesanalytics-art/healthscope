@@ -283,7 +283,7 @@ def main():
     feed=json.loads(FEED.read_text(encoding="utf-8"))
     editorial=json.loads(EDITORIAL.read_text(encoding="utf-8")) if EDITORIAL.exists() else []
     previous=json.loads(BRIEFS.read_text(encoding="utf-8")) if BRIEFS.exists() else []
-    old={b["source_url"]:b for b in previous if isinstance(b,dict) and b.get("source_url") and (str(b.get("mode","")).startswith("Editorially") or (fresh(b) and not str(b.get("title","")).startswith("Explore recently indexed")))}
+    old={b["source_url"]:b for b in previous if isinstance(b,dict) and b.get("source_url") and (str(b.get("mode","")).startswith("Editorially") or (fresh(b) and not str(b.get("title","")).startswith("Explore ") and not (b.get("evidence_type")=="Clinical trial registry" and "/study/NCT" not in b["source_url"])))}
     for item in editorial:
         if isinstance(item,dict) and item.get("source_url"):
             old[item["source_url"]]=item
