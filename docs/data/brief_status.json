@@ -1,10 +1,10 @@
 {
-  "last_generated": "2026-11-19T12:45:21+00:00",
+  "last_generated": "2026-11-19T13:03:12+00:00",
   "available_briefs": 5,
   "new_briefs": 0,
   "ai_attempts": 0,
   "ai_enriched": 0,
-  "ai_enabled": true,
+  "ai_enabled": false,
   "ai_verification": "not_attempted",
   "items": [],
   "limitations": "Automatic briefs may lack full source context; AI outputs are unreviewed and must be checked."
