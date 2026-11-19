@@ -153,7 +153,7 @@ def evidence_quote_matches(quote, source_text):
     def simple(value):
         return re.sub(r"\s+", " ", re.sub(r"[^\w\s]", " ", str(value).lower())).strip()
     short=simple(quote)
-    return 28 <= len(short) <= 185 and short in simple(source_text)
+    return 6 <= len(str(quote).split()) <= 20 and 28 <= len(short) <= 185 and short in simple(source_text)
 
 
 def fallback(r,packet):
@@ -219,7 +219,7 @@ def ai_brief(r,base,packet):
         "Teach relevant healthcare terminology in plain English with context, and suggest a realistic BI project with data requirements and checks.",
         "Every factual claim about an intervention or measured improvement must be traceable to the primary source. If not supported, omit it.",
         "Return JSON only with the required keys: what_happened, before, what_changed, evidence, limitations, bi_lessons, question, vocabulary, metrics, support_quotes, analyst_exercise.",
-        "support_quotes: array of 1–3 objects {section, quote} with section one of what_happened, what_changed, evidence; quote must be an EXACT 6–20-word continuous extract from the provided source text, not a paraphrase.",
+        "support_quotes: exactly one object {section, quote} in an array, with section one of what_happened, what_changed, evidence; quote must be an EXACT 6–20-word continuous extract from the provided source text, not a paraphrase.",
         "vocabulary: up to 4 objects {term, meaning}. metrics: up to 3 strings, explicitly suggested not reported.",
         "analyst_exercise: object with business_question, dataset_design, data_quality_check, power_bi_deliverable, sql_practice; use synthetic data, not invented real results.",
         "Never provide diagnosis, treatment advice, or personally identifying patient information."
@@ -259,6 +259,7 @@ def ai_brief(r,base,packet):
         quote=item.get("quote","")
         if section in ("what_happened","what_changed","evidence") and evidence_quote_matches(quote,text):
             verified.append({"section":section,"quote":clean(quote,185),"source_url":r.get("url","")})
+            break
     if not verified:
         raise ValueError("No exact quotations matched the fetched primary source")
     out=base.copy()
