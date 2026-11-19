@@ -1,0 +1,7 @@
+{
+  "mode": "Starter references",
+  "last_successful_refresh": null,
+  "last_attempted_refresh": null,
+  "sources": {},
+  "note": "Live data ingestion begins when the GitHub Actions workflow is run."
+}
