@@ -14,7 +14,7 @@ import re
 import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -90,6 +90,14 @@ def fetch_json(url):
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept":"application/json"})
     with urllib.request.urlopen(req,timeout=20) as f:
         return json.loads(f.read())
+
+def fresh(r, days=180):
+    try:
+        date = datetime.fromisoformat(str(r.get("published", ""))[:10]).date()
+        age = datetime.now(timezone.utc).date() - date
+        return timedelta(days=-2) <= age <= timedelta(days=days)
+    except (ValueError, TypeError):
+        return False
 
 def score(r):
     title = str(r.get("title") or "").lower()
@@ -217,8 +225,8 @@ def ai_brief(r,base,context):
 def main():
     feed=json.loads(FEED.read_text(encoding="utf-8"))
     previous=json.loads(BRIEFS.read_text(encoding="utf-8")) if BRIEFS.exists() else []
-    old={b["source_url"]:b for b in previous if isinstance(b,dict) and b.get("source_url")}
-    ordered=sorted([r for r in feed if isinstance(r,dict) and str(r.get("url","")).startswith("https://")],
+    old={b["source_url"]:b for b in previous if isinstance(b,dict) and b.get("source_url") and (str(b.get("mode","")).startswith("Editorially") or (fresh(b) and not str(b.get("title","")).startswith("Explore recently indexed")))}
+    ordered=sorted([r for r in feed if isinstance(r,dict) and str(r.get("url","")).startswith("https://") and fresh(r) and r.get("source_type") != "Research portal"],
        key=lambda r:(score(r),r.get("published","")),reverse=True)
     selected=[r for r in ordered if score(r)>=4 and r["url"] not in old][:MAX_NEW]
     ai_count=0
