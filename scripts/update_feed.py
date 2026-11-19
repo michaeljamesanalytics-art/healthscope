@@ -181,8 +181,8 @@ def main():
         for r in collected:
             if recent(r):
                 combined[r["url"]] = r
-        recent = sorted(combined.values(), key=lambda r: r.get("published", ""), reverse=True)[:150]
-        UPDATES.write_text(json.dumps(recent, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        latest_records = sorted(combined.values(), key=lambda r: r.get("published", ""), reverse=True)[:150]
+        UPDATES.write_text(json.dumps(latest_records, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     status = {"mode": "Automated source metadata", "last_attempted_refresh": NOW,
               "last_successful_refresh": NOW if ok else load(STATUS, {}).get("last_successful_refresh"),
               "sources": states, "note": "Source availability and scheduled run times are not guaranteed."}
