@@ -328,6 +328,84 @@
     "review_note": "The reported 117 and 181 are outputs of a documented local intervention, not proof of statewide coverage or reduced mortality. Keep the local project separate from the later 2026 state-level campaign."
   },
   {
+    "id": "93ac377b0529aa3ba117",
+    "title": "The City as a Learning Health System for Public Health Action.",
+    "source_title": "The City as a Learning Health System for Public Health Action.",
+    "source": "PubMed · Learn Health Syst",
+    "published": "2026-11-18",
+    "source_url": "https://pubmed.ncbi.nlm.nih.gov/43060430/",
+    "evidence_type": "Research citation",
+    "evidence_status": "Source-anchored synthesis, not independent outcome verification",
+    "mode": "AI-assisted primary-source analysis (gemini) · requires human review",
+    "generated_at": "2026-11-21",
+    "what_happened": "The authors developed the Worcester Integrated Health Data Exchange (WIHDE), a city-academic-healthcare initiative in Worcester, Massachusetts, to shift public health data usage from retrospective reporting to action-oriented practice.",
+    "before": "Not established in the source reviewed. To establish a baseline, one would need to research the specific reporting latency, data silos, and decision-making workflows present in Worcester's public health departments prior to the implementation of the WIHDE.",
+    "what_changed": "The initiative implemented a city-level health data enclave using a shared, deidentified data architecture to facilitate cross-organizational learning and governance structures designed to align priorities across independent organizations.",
+    "evidence": "The publication describes the WIHDE as an ongoing initiative, but provides no quantitative results, performance metrics, or statistical outcomes regarding its effectiveness.",
+    "limitations": "The source is a conceptual framework and descriptive account of an ongoing initiative; it lacks quantitative data, performance benchmarks, or evidence of sustained public health improvement.",
+    "vocabulary": [
+      {
+        "term": "Learning Health System",
+        "meaning": "A system where data, analytics, and evidence are continuously integrated into care processes to improve health outcomes."
+      },
+      {
+        "term": "Data Enclave",
+        "meaning": "A secure, controlled environment where researchers or analysts can access sensitive, often deidentified, data for analysis."
+      },
+      {
+        "term": "Deidentified Data",
+        "meaning": "Information from which identifiers (like names or social security numbers) have been removed to protect patient privacy."
+      },
+      {
+        "term": "Governance",
+        "meaning": "The framework of policies, roles, and responsibilities that ensure data is managed, shared, and used securely and ethically."
+      }
+    ],
+    "metrics": [
+      "Average time from data ingestion to actionable public health alert",
+      "Number of cross-organizational data sharing agreements executed",
+      "Frequency of policy adjustments made based on enclave data insights"
+    ],
+    "bi_lessons": "Effective public health BI requires more than just a dashboard; it requires a 'data enclave' with shared governance to overcome fragmented data ownership and distributed authority.",
+    "question": "How can a city-level data enclave improve the speed of public health interventions compared to traditional, siloed reporting?",
+    "research_depth": "Primary source analyzed with matched quotations",
+    "source_documents": [
+      {
+        "title": "The City as a Learning Health System for Public Health Action.",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/43060430/",
+        "type": "Journal Article",
+        "method": "PubMed abstract via NCBI EFetch",
+        "retrieved_at": "2026-11-21T14:26:42+00:00",
+        "source_level": "Primary source excerpt",
+        "reason": ""
+      }
+    ],
+    "support_quotes": [
+      {
+        "section": "what_changed",
+        "quote": "supported by a city-level health data enclave built on a shared, deidentified data architecture for cross-organizational learning",
+        "source_url": "https://pubmed.ncbi.nlm.nih.gov/43060430/"
+      }
+    ],
+    "analyst_exercise": {
+      "business_question": "Which public health initiatives show the highest frequency of data-driven policy adjustments?",
+      "dataset_design": "A synthetic table containing: initiative_id, organization_id, data_ingestion_date, action_taken_date, and policy_change_flag.",
+      "data_quality_check": "Verify that all initiative_id entries map to a valid organization_id and that action_taken_date is not prior to data_ingestion_date.",
+      "power_bi_deliverable": "A 'Learning Loop' dashboard showing the time-lag between data availability and organizational action across different sectors.",
+      "sql_practice": "Write a query to calculate the average duration between data ingestion and action taken, grouped by initiative type."
+    },
+    "reading_tasks": [
+      "Open the primary source. Identify its authors or issuing organization, date and intended audience.",
+      "Find the baseline workflow and the actual intervention; do not assume either is described.",
+      "Separate measured outcomes from projected benefits, then identify possible confounders."
+    ],
+    "review_note": "Original-source text was retrieved and at least one exact evidence quotation was matched automatically. This does not guarantee the accuracy of all AI interpretations. Review the full source before citing.",
+    "ai_last_attempt_at": "2026-11-21T14:26:42+00:00",
+    "ai_last_attempt_provider": "gemini",
+    "ai_last_attempt_model": "gemini-3.1-flash-lite",
+    "ai_provider": "gemini"
+  },
+  {
     "id": "8186d30f77677560e94b",
     "title": "Artificial Intelligence-Driven Digital Tools for Diabetes Self-management in Children: A Scoping Review.",
     "source_title": "Artificial Intelligence-Driven Digital Tools for Diabetes Self-management in Children: A Scoping Review.",
