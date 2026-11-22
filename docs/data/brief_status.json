@@ -1,24 +1,12 @@
 {
-  "last_generated": "2026-11-21T14:26:42+00:00",
+  "last_generated": "2026-11-22T14:20:09+00:00",
   "available_briefs": 6,
-  "new_briefs": 1,
-  "ai_attempts": 1,
-  "ai_enriched": 1,
+  "new_briefs": 0,
+  "ai_attempts": 0,
+  "ai_enriched": 0,
   "ai_enabled": true,
   "ai_provider": "gemini",
-  "ai_verification": "confirmed",
-  "items": [
-    {
-      "url": "https://pubmed.ncbi.nlm.nih.gov/43060430/",
-      "status": "ai_enriched",
-      "provider": "gemini",
-      "source_depth": "Primary source excerpt"
-    },
-    {
-      "url": "https://pubmed.ncbi.nlm.nih.gov/43060430/",
-      "source_depth": "Primary source excerpt",
-      "mode": "AI-assisted primary-source analysis (gemini) \u00b7 requires human review"
-    }
-  ],
+  "ai_verification": "not_attempted",
+  "items": [],
   "limitations": "Automatic briefs may lack full source context; AI outputs are unreviewed and must be checked."
 }
